@@ -2,37 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use App\Models\Patient;
 use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isNull;
 
 class PatientController extends Controller
 {
     //
 
+    public function create()
+    {
+
+        $facilities = Facility::get();
+        return view('admin.patient.create', compact('facilities'));
+    }
+
     public function index()
     {
-        return view('admin.patient.index');
-    }
-
-    public function viewall()
-    {
         $patients = Patient::where('is_deleted', '=', 0)->orderBy('created_at', 'DESC')->get();
-        // dd($patients);
-        return view('admin.patient.viewall', ['patients' => $patients]);
+        return view('admin.patient.index', ['patients' => $patients]);
     }
 
 
-    public function viewone()
+    public function show($id)
     {
-        $patient = Patient::where('is_deleted', '=', 0)->firstWhere('id', request()->get('patient_id'));
-        return view('admin.patient.viewone', ['patient' => $patient]);
+        $patient = Patient::where('is_deleted', '=', 0)->firstWhere('id', $id);
+        return view('admin.patient.show', ['patient' => $patient]);
     }
 
 
     public function store()
     {
+        // dd(request()->all());
         $validated = request()->validate(
             [
                 'staff_id' => 'required',
@@ -41,9 +42,9 @@ class PatientController extends Controller
                 'lastname' => 'required',
                 'email' => 'required',
                 'contact1' => 'required',
-                'contact2' => 'required',
-                'proxy_contact1' => 'required',
-                'proxy_contact2' => 'required',
+                'contact2' => 'nullable|min:8|max:13',
+                'proxy_contact1' => 'nullable|min:8|max:13',
+                'proxy_contact2' => 'nullable|min:8|max:13',
                 'facility' => 'required',
                 'address' => 'required',
                 'landmark' => 'required',
@@ -99,6 +100,15 @@ class PatientController extends Controller
             ]
         );
 
-        return redirect()->route('viewall_patients');
+        return redirect()->route('patient.index')->with('success', 'Patient Added successfully!');
+    }
+
+    public function destroy($id)
+    {
+        //if no data is found first or fail is used
+        // Route model binding is used in argument.
+        $patient = Patient::where('id', $id)->firstOrFail();
+        $patient->delete();
+        return redirect()->route('patient.index')->with('success', 'Patient deleted successfully!');
     }
 }

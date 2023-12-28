@@ -45,30 +45,15 @@ class callScheduler extends Command
         foreach ($data as $key => $patient) {
             // get enrolment date of the patient to add biweekly call
             $currentDate = Carbon::create($patient['enrollment_date']);
-
             // fetch single patients
             $counter = 0;
-            Biweeklycall::create(
-                [
-                    'staff_id' => $patient['staff_id'],
-                    'study_id' => $patient['study_id'],
-                    'patient_id' => $patient['id'],
-                    'call_date' => $currentDate->copy()->addDay($counter)
-                ]
-            );
+
             for ($i = 0; $i < 80; $i++) {
                 if ($i % 2 == 0) {
                     $counter += 3;
                 } else {
-                    $counter += 7;
+                    $counter += 4;
                 }
-                // array_push($res, [
-                //     'staff_id' => $patient['staff_id'],
-                //     'study_id' => $patient['study_id'],
-                //     'patient_id' => $patient['id'],
-                //     'call_date' => $currentDate->copy()->addDay($counter)
-                // ]);
-
                 Biweeklycall::create(
                     [
                         'staff_id' => $patient['staff_id'],
@@ -80,17 +65,6 @@ class callScheduler extends Command
             }
 
             Patient::where('id', $patient['id'])->update(['biweeklycall_status' => true]);
-
-
-
-            // BiweeklyCall::create(
-            //     [
-            //         'staff_id' => $patient['staff_id'],
-            //         'study_id' => $patient['study_id'],
-            //         'patient_id' => $patient['id'],
-            //         'call_date' => $patient['study_id']
-            //     ]
-            // );
         }
 
         Log::info("Data updated successfully");

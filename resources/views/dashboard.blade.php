@@ -13,7 +13,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('shared.navbar');
+                @include('shared.navbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->

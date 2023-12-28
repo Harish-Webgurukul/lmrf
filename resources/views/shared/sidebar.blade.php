@@ -2,7 +2,7 @@
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon">
             <i class="fas fa-hospital text-info"></i>
         </div>
@@ -39,9 +39,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Biweekly Telecall:</h6>
                 <a class="collapse-item" href="{{ route('new_call') }}">New Call</a>
-                <a class="collapse-item" href="buttons.html">Pending Calls</a>
+                <a class="collapse-item"  href="{{ route('pending_call') }}">Pending Calls</a>
                 <a class="collapse-item" href="buttons.html">Hospital Visits</a>
-                <a class="collapse-item" href="buttons.html">Home Visit for No Contact</a>
                 <a class="collapse-item" href="buttons.html">Home Visit for No Contact</a>
                 <a class="collapse-item" href="buttons.html">Home Visit for ILS Contact</a>
                 <a class="collapse-item" href="buttons.html">ILS FollowUp Call</a>
@@ -96,7 +95,7 @@
         </div>
     </li>
      <!-- Nav Item - Pages Collapse Menu -->
-     <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatients"
             aria-expanded="true" aria-controls="collapsePatients">
 
@@ -106,8 +105,24 @@
         <div id="collapsePatients" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Operator details</h6>
-                <a class="collapse-item"href="{{ route('viewall_patients') }}">View</a>
-                <a class="collapse-item" href="{{ route('add_patient') }}">Add</a>
+                <a class="collapse-item"href="{{ route('patient.index') }}">View</a>
+                <a class="collapse-item" href="{{ route('patient.create') }}">Add</a>
+            </div>
+        </div>
+    </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFacility"
+            aria-expanded="true" aria-controls="collapseFacility">
+
+            <i class="fas fa-fw fa-female"></i>
+            <span>Facilities</span>
+        </a>
+        <div id="collapseFacility" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Facilities details</h6>
+                {{-- <a class="collapse-item"href="{{ route('facility.index') }}">View</a> --}}
+                <a class="collapse-item" href="{{ route('facility.create') }}">Add</a>
             </div>
         </div>
     </li>

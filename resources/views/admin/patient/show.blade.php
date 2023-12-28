@@ -40,11 +40,11 @@
                                 <div class="card-body">
                                     <table class="table">
                                         <tr>
-                                            <th>staff_id</th>
+                                            <th>Staff Id</th>
                                             <td>{{ $patient->staff_id}}</td>
                                         <tr>
                                         <tr>
-                                            <th>study_id</th>
+                                            <th>Study Id</th>
                                             <td>{{ $patient->study_id}}</td>
                                         <tr>
                                         <tr>
@@ -53,155 +53,155 @@
                                         <tr>
 
                                         <tr>
-                                            <th>email</th>
+                                            <th>Email</th>
                                             <td>{{ $patient->email}}</td>
                                         <tr>
                                         <tr>
-                                            <th>contact1</th>
+                                            <th>Contact1</th>
                                             <td>{{ $patient->contact1}}</td>
                                         <tr>
                                         <tr>
-                                            <th>contact2</th>
+                                            <th>Contact2</th>
                                             <td>{{ $patient->contact2}}</td>
                                         <tr>
                                         <tr>
-                                            <th>proxy_contact1</th>
+                                            <th>Proxy contact1</th>
                                             <td>{{ $patient->proxy_contact1}}</td>
                                         <tr>
                                         <tr>
-                                            <th>proxy_contact2</th>
+                                            <th>Proxy contact2</th>
                                             <td>{{ $patient->proxy_contact2}}</td>
                                         <tr>
                                         <tr>
-                                            <th>facility</th>
+                                            <th>Facility</th>
                                             <td>{{ $patient->facility}}</td>
                                         <tr>
                                         <tr>
-                                            <th>address</th>
+                                            <th>Address</th>
                                             <td>{{ $patient->address}}</td>
                                         <tr>
                                         <tr>
-                                            <th>landmark</th>
+                                            <th>Landmark</th>
                                             <td>{{ $patient->landmark}}</td>
                                         <tr>
                                         <tr>
-                                            <th>city</th>
+                                            <th>City</th>
                                             <td>{{ $patient->city}}</td>
                                         <tr>
                                         <tr>
-                                            <th>pincode</th>
+                                            <th>Pincode</th>
                                             <td>{{ $patient->pincode}}</td>
                                         <tr>
                                         <tr>
-                                            <th>enrollment_date</th>
+                                            <th>Enrollment Date</th>
                                             <td>{{ $patient->enrollment_date}}</td>
                                         <tr>
                                         <tr>
-                                            <th>expected_delivery_date</th>
+                                            <th>Expected delivery date</th>
                                             <td>{{ $patient->expected_delivery_date}}</td>
                                         <tr>
                                         <tr>
-                                            <th>delivery_date</th>
+                                            <th>Delivery date</th>
                                             <td>{{ $patient->delivery_date}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_from_visit2</th>
+                                            <th>In person visit2 from</th>
                                             <td>{{ $patient->in_person_from_visit2}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_visit2</th>
+                                            <th>In Person visit2 to</th>
                                             <td>{{ $patient->in_person_to_visit2}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_status2</th>
+                                            <th>In Person status2</th>
                                             <td>{{ $patient->in_person_to_status2}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_visit2_completed</th>
+                                            <th>In Person Visit2 Completed</th>
                                             <td>{{ $patient->in_person_visit2_completed}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_note2</th>
+                                            <th>In Person Note2</th>
                                             <td>{{ $patient->in_person_note2}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_from_visit3</th>
+                                            <th>In Person Visit3 From</th>
                                             <td>{{ $patient->in_person_from_visit3}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_visit3</th>
+                                            <th>In Person Visit3 To</th>
                                             <td>{{ $patient->in_person_to_visit3}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_status3</th>
+                                            <th>In Person status3 To</th>
                                             <td>{{ $patient->in_person_to_status3}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_visit3_completed</th>
+                                            <th>In Person Visit3 completed</th>
                                             <td>{{ $patient->in_person_visit3_completed}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_note3</th>
+                                            <th>In Person Note3</th>
                                             <td>{{ $patient->in_person_note3}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_from_visit4</th>
+                                            <th>In Person visit4 From</th>
                                             <td>{{ $patient->in_person_from_visit4}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_visit4</th>
+                                            <th>In Person Visit4 To</th>
                                             <td>{{ $patient->in_person_to_visit4}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_status4</th>
+                                            <th>In Person Status4</th>
                                             <td>{{ $patient->in_person_to_status4}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_visit4_completed</th>
+                                            <th>In Person Visit4 Completed</th>
                                             <td>{{ $patient->in_person_visit4_completed}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_note4</th>
+                                            <th>In Person Note4</th>
                                             <td>{{ $patient->in_person_note4}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_from_visit5</th>
+                                            <th>In Person visit5 From</th>
                                             <td>{{ $patient->in_person_from_visit5}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_visit5</th>
+                                            <th>In Person visit5 To</th>
                                             <td>{{ $patient->in_person_to_visit5}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_status5</th>
+                                            <th>In Person visit5 Status</th>
                                             <td>{{ $patient->in_person_to_status5}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_visit5_completed</th>
+                                            <th>In Person visit5 Status</th>
                                             <td>{{ $patient->in_person_visit5_completed}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_note5</th>
+                                            <th>In Person Note5</th>
                                             <td>{{ $patient->in_person_note5}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_from_visit_final</th>
+                                            <th>In Person  Visit Final From</th>
                                             <td>{{ $patient->in_person_from_visit_final}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_visit_final</th>
+                                            <th>In Person  Visit Final To</th>
                                             <td>{{ $patient->in_person_to_visit_final}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_to_statusfinal</th>
+                                            <th>In Person Final Status</th>
                                             <td>{{ $patient->in_person_to_statusfinal}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_visitfinal_completed</th>
+                                            <th>In Person Final Visit Completed</th>
                                             <td>{{ $patient->in_person_visitfinal_completed}}</td>
                                         <tr>
                                         <tr>
-                                            <th>in_person_notefinal</th>
+                                            <th>In Person Note Final</th>
                                             <td>{{ $patient->in_person_notefinal}}</td>
                                         <tr>
                                     </table>
