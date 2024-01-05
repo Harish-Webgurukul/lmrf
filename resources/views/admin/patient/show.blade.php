@@ -30,7 +30,7 @@
                     <div class="row">
 
                         <!-- Content Column -->
-                        <div class="col-lg-10 mb-4">
+                        <div class="col-md-12 mb-4">
 
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
@@ -38,173 +38,141 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Patient Detail</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table">
-                                        <tr>
-                                            <th>Staff Id</th>
-                                            <td>{{ $patient->staff_id}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Study Id</th>
-                                            <td>{{ $patient->study_id}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Patient Name </th>
-                                            <td>{{ $patient->firstname}} {{ $patient->lastname}}</td>
-                                        <tr>
+                                    <div class="row">
+                                    <div class="col-md-6 col-12 table-responsive">
+                                        <h2 class="text-center">Patient Detail</h2>
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <td>Staff Id</td>
+                                                    <td>:</td>
+                                                    <td>{{ $patient->staff_id }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Study Id</td>
+                                                    <td>:</td>
+                                                    <td>{{ $patient->study_id }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Patient Name </td>
+                                                    <td>:</td>
+                                                    <td>{{ $patient->firstname }} {{ $patient->lastname }}</td>
+                                                <tr>
 
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{{ $patient->email}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Contact1</th>
-                                            <td>{{ $patient->contact1}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Contact2</th>
-                                            <td>{{ $patient->contact2}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Proxy contact1</th>
-                                            <td>{{ $patient->proxy_contact1}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Proxy contact2</th>
-                                            <td>{{ $patient->proxy_contact2}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Facility</th>
-                                            <td>{{ $patient->facility}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Address</th>
-                                            <td>{{ $patient->address}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Landmark</th>
-                                            <td>{{ $patient->landmark}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>City</th>
-                                            <td>{{ $patient->city}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Pincode</th>
-                                            <td>{{ $patient->pincode}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Enrollment Date</th>
-                                            <td>{{ $patient->enrollment_date}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Expected delivery date</th>
-                                            <td>{{ $patient->expected_delivery_date}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>Delivery date</th>
-                                            <td>{{ $patient->delivery_date}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In person visit2 from</th>
-                                            <td>{{ $patient->in_person_from_visit2}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person visit2 to</th>
-                                            <td>{{ $patient->in_person_to_visit2}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person status2</th>
-                                            <td>{{ $patient->in_person_to_status2}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Visit2 Completed</th>
-                                            <td>{{ $patient->in_person_visit2_completed}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Note2</th>
-                                            <td>{{ $patient->in_person_note2}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Visit3 From</th>
-                                            <td>{{ $patient->in_person_from_visit3}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Visit3 To</th>
-                                            <td>{{ $patient->in_person_to_visit3}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person status3 To</th>
-                                            <td>{{ $patient->in_person_to_status3}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Visit3 completed</th>
-                                            <td>{{ $patient->in_person_visit3_completed}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Note3</th>
-                                            <td>{{ $patient->in_person_note3}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person visit4 From</th>
-                                            <td>{{ $patient->in_person_from_visit4}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Visit4 To</th>
-                                            <td>{{ $patient->in_person_to_visit4}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Status4</th>
-                                            <td>{{ $patient->in_person_to_status4}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Visit4 Completed</th>
-                                            <td>{{ $patient->in_person_visit4_completed}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Note4</th>
-                                            <td>{{ $patient->in_person_note4}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person visit5 From</th>
-                                            <td>{{ $patient->in_person_from_visit5}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person visit5 To</th>
-                                            <td>{{ $patient->in_person_to_visit5}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person visit5 Status</th>
-                                            <td>{{ $patient->in_person_to_status5}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person visit5 Status</th>
-                                            <td>{{ $patient->in_person_visit5_completed}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Note5</th>
-                                            <td>{{ $patient->in_person_note5}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person  Visit Final From</th>
-                                            <td>{{ $patient->in_person_from_visit_final}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person  Visit Final To</th>
-                                            <td>{{ $patient->in_person_to_visit_final}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Final Status</th>
-                                            <td>{{ $patient->in_person_to_statusfinal}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Final Visit Completed</th>
-                                            <td>{{ $patient->in_person_visitfinal_completed}}</td>
-                                        <tr>
-                                        <tr>
-                                            <th>In Person Note Final</th>
-                                            <td>{{ $patient->in_person_notefinal}}</td>
-                                        <tr>
-                                    </table>
+                                                <tr>
+                                                    <td>Email</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->email }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Contact1</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->contact1 }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Contact2</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->contact2 }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Proxy contact1</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->proxy_contact1 }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Proxy contact2</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->proxy_contact2 }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Facility</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->facility }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Address</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->address }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Landmark</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->landmark }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>City</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->city }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Pincode</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->pincode }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Enrollment Date</td>
+                                                     <td>:</td>
+                                                    <td>{{ $patient->enrollment_date }}</td>
+                                                <tr>
+                                                <tr>
+                                                    <td>Expected delivery date</td>
+                                                    <td>:</td>
+                                                    <td>{{ $patient->expected_delivery_date }}</td>
+                                                <tr>
+                                            </table>
+
+                                    </div>
+
+                                    <div class="col-md-6 col-12 table-responsive">
+                                        <h2 class="text-center">ANC Detail</h2>
+                                            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Visit Number</th>
+                                                        <th>From date</th>
+                                                        <th>To date</th>
+                                                        <th>Status</th>
+                                                        <th>Visit Completed On</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Visit Number</th>
+                                                        <th>From date</th>
+                                                        <th>To date</th>
+                                                        <th>Status</th>
+                                                        <th>Visit Completed On</th>
+
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    @forelse ($patient->ancvisitis as $ancvisit)
+                                                        <tr>
+                                                            <td>ANC {{ $ancvisit->visit_number }}</td>
+                                                            <td>{{ $ancvisit->from_date }}</td>
+                                                            <td>{{ $ancvisit->to_date }}</td>
+                                                            <td>{{ $ancvisit->status ? 'Completed' : 'Pending' }}</td>
+                                                            <td>{{ $ancvisit->visit_completed_on }}</td>
+
+
+
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td>No Data Found</td>
+                                                            <td>No Data Found</td>
+                                                            <td>No Data Found</td>
+                                                            <td>No Data Found</td>
+                                                            <td>No Data Found</td>
+                                                            <td>No Data Found</td>
+                                                        </tr>
+                                                    @endforelse
+
+                                                </tbody>
+                                            </table>
+
+                                    </div>
+
                                 </div>
                             </div>
 

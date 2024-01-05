@@ -36,7 +36,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 col-md-6">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Biweekly Call >
+                            <h6 class="m-0 font-weight-bold text-primary">ANC Call >
                                 @if ($pending_call ?? false)
                                     Pending Call
                                 @else
@@ -46,37 +46,37 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('call_patient_update', ['id' => $patient->id]) }}">
+                            <form method="post" action="{{ route('call_patient_update', ['id' => $anc->id]) }}">
                                 @csrf
 
-                                <input type="hidden" name="id" value="{{ $patient->id }}" />
+                                <input type="hidden" name="id" value="{{ $anc->id }}" />
                                 <input type="hidden" name="call_type" value="{{ $pending_call ?? 0 }}" />
                                 <table class="table table-borderless table-striped table-sm" width="100%" cellspacing="0">
                                     <tbody>
                                         <tr>
-                                            <td>Call Date</td>
+                                            <td>Visit Date</td>
                                             <td>:</td>
-                                            <td>{{ date('d-m-Y', strtotime($patient->call_date)) }}</td>
+                                            <td>{{ $anc->from_date }} - {{ $anc->to_date }}</td>
                                         </tr>
                                         <tr>
                                             <td>Patient Name</td>
                                             <td>:</td>
-                                            <td>{{ $patient->Patient->firstname }} {{ $patient->Patient->lastname }}</td>
+                                            <td>{{ $anc->Patient->firstname }} {{ $anc->Patient->lastname }}</td>
                                         </tr>
                                         <tr>
                                             <td>Address:</td>
                                             <td>:</td>
-                                            <td><small>{{ $patient->Patient->address }}<br />{{ $patient->Patient->landmark }}
-                                                    <br />{{ $patient->Patient->city }} <br />
-                                                    {{ $patient->Patient->pincode }}</small></td>
+                                            <td><small>{{ $anc->Patient->address }}<br />{{ $anc->Patient->landmark }}
+                                                    <br />{{ $anc->Patient->city }} <br />
+                                                    {{ $anc->Patient->pincode }}</small></td>
                                         </tr>
                                         <tr>
                                             <td>Contact1:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->contact1 != null)
-                                                    {{ $patient->Patient->contact1 }} <a class="btn btn-sm btn-success"
-                                                        href="tel: {{ $patient->Patient->contact1 }}"> Call </a>
+                                                @if ($anc->Patient->contact1 != null)
+                                                    {{ $anc->Patient->contact1 }} <a class="btn btn-sm btn-success"
+                                                        href="tel: {{ $anc->Patient->contact1 }}"> Call </a>
                                                 @else
                                                     Not Available
                                                 @endif
@@ -86,9 +86,9 @@
                                             <td> Contact2:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->contact2 != null)
-                                                    {{ $patient->Patient->contact2 }} <a class="btn btn-sm btn-success"
-                                                        href="tel: {{ $patient->Patient->contact2 }}"> Call </a>
+                                                @if ($anc->Patient->contact2 != null)
+                                                    {{ $anc->Patient->contact2 }} <a class="btn btn-sm btn-success"
+                                                        href="tel: {{ $anc->Patient->contact2 }}"> Call </a>
                                                 @else
                                                     Not Available
                                                 @endif
@@ -98,10 +98,10 @@
                                             <td>Proxy Contact1:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->proxy_contact1 != null)
-                                                    {{ $patient->Patient->proxy_contact1 }} <a
+                                                @if ($anc->Patient->proxy_contact1 != null)
+                                                    {{ $anc->Patient->proxy_contact1 }} <a
                                                         class="btn btn-sm btn-success"
-                                                        href="tel: {{ $patient->Patient->proxy_contact1 }}"> Call </a>
+                                                        href="tel: {{ $anc->Patient->proxy_contact1 }}"> Call </a>
                                                 @else
                                                     Not Available
                                                 @endif
@@ -112,10 +112,10 @@
                                             <td>Proxy Contact2:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->proxy_contact2 != null)
-                                                    {{ $patient->Patient->proxy_contact2 }} <a
+                                                @if ($anc->Patient->proxy_contact2 != null)
+                                                    {{ $anc->Patient->proxy_contact2 }} <a
                                                         class="btn btn-sm btn-success"
-                                                        href="tel:{{ $patient->Patient->proxy_contact2 }}"> Call </a>
+                                                        href="tel:{{ $anc->Patient->proxy_contact2 }}"> Call </a>
                                                 @else
                                                     Not Available
                                                 @endif
@@ -153,15 +153,7 @@
                                                 <input type="date" class="form-control" name="hospital_visit" />
                                             </td>
                                         </tr>
-                                        <tr id="homeVisitRow">
-                                            <td>Home Visit:</td>
-                                            <td>:</td>
-                                            <td>
-                                                <label id="ilshome">For ILS <input type="checkbox" name="home_visit" value="active" /></label>
-                                                <label id="contacthome"> For No Contact <input type="checkbox" name="ils_visit" value="active" /></label>
-                                            </td>
 
-                                        </tr>
                                         <tr>
                                             <td>Note :</td>
                                             <td>:</td>
@@ -207,7 +199,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#hospitalVisitRow').hide();
-            $('#ilshome').hide();
+
             res = $('#ilscheck').is(':checked');
             if (res == true) {
                 $('#hospitalVisitRow').show();
@@ -218,10 +210,10 @@
             $('#ilscheck').change(function() {
                 if (this.checked) {
                     $('#hospitalVisitRow').show();
-                    $('#ilshome').show();
+
                 } else {
                     $('#hospitalVisitRow').hide();
-                    $('#ilshome').hide();
+
 
                 }
 
@@ -233,14 +225,14 @@
                     if (str == 2) {
                         $('#homeVisitRow').show();
                         $('#ilsSymptonRow').show();
-                        $('#contacthome').hide();
+
 
                     } else if (str == 1) {
                         $('#homeVisitRow').show();
                         $('#hospitalVisitRow').hide();
                         $('#ilsSymptonRow').hide();
                         $('#ilshome').hide();
-                        $('#contacthome').show();
+
                     } else {
                         $('#hospitalVisitRow').hide();
                         $('#homeVisitRow').hide();

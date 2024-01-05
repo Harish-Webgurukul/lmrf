@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ancvisit;
 use App\Models\Facility;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -14,7 +16,8 @@ class PatientController extends Controller
     {
 
         $facilities = Facility::get();
-        return view('admin.patient.create', compact('facilities'));
+        $operators = User::where('user_role', '2')->get();
+        return view('admin.patient.create', compact('facilities', 'operators'));
     }
 
     public function index()
@@ -26,7 +29,7 @@ class PatientController extends Controller
 
     public function show($id)
     {
-        $patient = Patient::where('is_deleted', '=', 0)->firstWhere('id', $id);
+        $patient = Patient::with('ancvisitis')->where('is_deleted', '=', 0)->firstWhere('id', $id);
         return view('admin.patient.show', ['patient' => $patient]);
     }
 
@@ -72,6 +75,7 @@ class PatientController extends Controller
 
                 'staff_id' =>  $validated['staff_id'],
                 'study_id' =>  $validated['study_id'],
+                'facility_id' =>  $validated['facility'],
                 'firstname' =>  $validated['firstname'],
                 'lastname' =>  $validated['lastname'],
                 'email' =>  $validated['email'],
@@ -86,20 +90,17 @@ class PatientController extends Controller
                 'pincode' =>  $validated['pincode'],
                 'enrollment_date' =>  $validated['enrollment_date'],
                 'expected_delivery_date' =>  $validated['expected_delivery_date'],
-                'in_person_from_visit2' =>  $validated['in_person_from_visit2'],
-                'in_person_to_visit2' =>  $validated['in_person_to_visit2'],
-                'in_person_from_visit3' =>  $validated['in_person_from_visit3'],
-                'in_person_to_visit3' =>  $validated['in_person_to_visit3'],
-                'in_person_from_visit4' =>  $validated['in_person_from_visit4'],
-                'in_person_to_visit4' =>  $validated['in_person_to_visit4'],
-                'in_person_from_visit5' =>  $validated['in_person_from_visit5'],
-                'in_person_to_visit5' =>  $validated['in_person_to_visit5'],
-                'in_person_from_visit_final' =>  $validated['in_person_from_visit_final'],
-                'in_person_to_visit_final' =>  $validated['in_person_to_visit_final'],
-
             ]
         );
 
+        $data = [
+            ['staff_id' => $validated['staff_id'], 'study_id' => $validated['study_id'], 'patient_id' => $user->id, 'visit_number' => 2, 'from_date' => $validated['in_person_from_visit2'], 'to_date' => $validated['in_person_to_visit2']],
+            ['staff_id' => $validated['staff_id'], 'study_id' => $validated['study_id'], 'patient_id' => $user->id, 'visit_number' => 3, 'from_date' => $validated['in_person_from_visit3'], 'to_date' => $validated['in_person_to_visit3']],
+            ['staff_id' => $validated['staff_id'], 'study_id' => $validated['study_id'], 'patient_id' => $user->id, 'visit_number' => 4, 'from_date' => $validated['in_person_from_visit4'], 'to_date' => $validated['in_person_to_visit4']],
+            ['staff_id' => $validated['staff_id'], 'study_id' => $validated['study_id'], 'patient_id' => $user->id, 'visit_number' => 5, 'from_date' => $validated['in_person_from_visit5'], 'to_date' => $validated['in_person_to_visit5']],
+            ['staff_id' => $validated['staff_id'], 'study_id' => $validated['study_id'], 'patient_id' => $user->id, 'visit_number' => 6, 'from_date' => $validated['in_person_from_visit_final'], 'to_date' => $validated['in_person_to_visit_final']]
+        ];
+        Ancvisit::insert($data);
         return redirect()->route('patient.index')->with('success', 'Patient Added successfully!');
     }
 

@@ -65,6 +65,7 @@ class OperatorController extends Controller
         $editing = true;
         return view('admin.operator.view', compact('user', 'editing'));
     }
+
     public function update(User $user)
     {
         $validated = request()->validate(

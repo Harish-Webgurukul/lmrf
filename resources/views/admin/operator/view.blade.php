@@ -106,7 +106,8 @@
 
                                     </form>
                                     @else
-                                    <table class="table">
+                                    <div class="table-responsive">
+                                    <table class="table table-bordered">
                                         <tr>
                                             <th>Staff Id</th>
                                             <td>{{ $user->staff_id }}</td>
@@ -138,6 +139,7 @@
                                             <td>{{ $user->last_loggedin }}</td>
                                         </tr>
                                     </table>
+                                    </div>
                                     @endif
                                 </div>
                             </div>

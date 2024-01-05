@@ -42,8 +42,8 @@
                 <a class="collapse-item"  href="{{ route('pending_call') }}">Pending Calls</a>
                 <a class="collapse-item" href="buttons.html">Hospital Visits</a>
                 <a class="collapse-item" href="buttons.html">Home Visit for No Contact</a>
-                <a class="collapse-item" href="buttons.html">Home Visit for ILS Contact</a>
-                <a class="collapse-item" href="buttons.html">ILS FollowUp Call</a>
+                <a class="collapse-item" href="buttons.html">Home Visit for ILS Sample</a>
+                <a class="collapse-item" href="{{ route('ils.index') }}">ILS FollowUp Call</a>
             </div>
         </div>
     </li>
@@ -60,11 +60,11 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">ANC Visit:</h6>
-                <a class="collapse-item" href="utilities-color.html">ANC Visit 2</a>
-                <a class="collapse-item" href="utilities-border.html">ANC Visit 3</a>
-                <a class="collapse-item" href="utilities-animation.html">ANC Visit 4</a>
-                <a class="collapse-item" href="utilities-other.html">Delivery Visit</a>
-                <a class="collapse-item" href="utilities-other.html">Day7 postpartum Visit</a>
+                <a class="collapse-item" href="{{ route('anc2.view_all') }}">ANC Visit 2</a>
+                <a class="collapse-item" href="{{ route('anc3.view_all') }}">ANC Visit 3</a>
+                <a class="collapse-item" href="{{ route('anc4.view_all') }}">ANC Visit 4</a>
+                <a class="collapse-item" href="{{ route('anc5.view_all') }}">Delivery Visit</a>
+                <a class="collapse-item" href="{{ route('anc6.view_all') }}">Day7 postpartum Visit</a>
             </div>
         </div>
     </li>
@@ -83,14 +83,13 @@
             aria-expanded="true" aria-controls="collapsePages">
 
             <i class="fas fa-fw fa-user-nurse"></i>
-            <span>Operators</span>
+            <span>Staff</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operator details</h6>
+                <h6 class="collapse-header">Staff details</h6>
                 <a class="collapse-item" href="{{ route('viewall_operator') }}">View</a>
                 <a class="collapse-item" href="{{ route('add_operator') }}">Add</a>
-
             </div>
         </div>
     </li>
@@ -104,7 +103,7 @@
         </a>
         <div id="collapsePatients" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operator details</h6>
+                <h6 class="collapse-header">Patient details</h6>
                 <a class="collapse-item"href="{{ route('patient.index') }}">View</a>
                 <a class="collapse-item" href="{{ route('patient.create') }}">Add</a>
             </div>
@@ -121,7 +120,7 @@
         <div id="collapseFacility" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Facilities details</h6>
-                {{-- <a class="collapse-item"href="{{ route('facility.index') }}">View</a> --}}
+                <a class="collapse-item"href="{{ route('facility.view') }}">View</a>
                 <a class="collapse-item" href="{{ route('facility.create') }}">Add</a>
             </div>
         </div>

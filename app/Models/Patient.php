@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +10,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Patient extends Model
 {
     use HasFactory;
+
+    public function getEnrollmentDateAttribute()
+    {
+        return Carbon::parse($this->attributes['enrollment_date'])->format('d-M-Y');
+    }
+    public function getExpectedDeliveryDateAttribute()
+    {
+        return Carbon::parse($this->attributes['enrollment_date'])->format('d-M-Y');
+    }
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +29,7 @@ class Patient extends Model
     protected $fillable = [
         'staff_id',
         'study_id',
+        'facility_id',
         'firstname',
         'lastname',
         'email',
@@ -33,36 +45,21 @@ class Patient extends Model
         'enrollment_date',
         'expected_delivery_date',
         'delivery_date',
-        'in_person_from_visit2',
-        'in_person_to_visit2',
-        'in_person_to_status2',
-        'in_person_visit2_completed',
-        'in_person_note2',
-        'in_person_from_visit3',
-        'in_person_to_visit3',
-        'in_person_to_status3',
-        'in_person_visit3_completed',
-        'in_person_note3',
-        'in_person_from_visit4',
-        'in_person_to_visit4',
-        'in_person_to_status4',
-        'in_person_visit4_completed',
-        'in_person_note4',
-        'in_person_from_visit5',
-        'in_person_to_visit5',
-        'in_person_to_status5',
-        'in_person_visit5_completed',
-        'in_person_note5',
-        'in_person_from_visit_final',
-        'in_person_to_visit_final',
-        'in_person_to_statusfinal',
-        'in_person_visitfinal_completed',
-        'in_person_notefinal',
         'is_deleted'
     ];
 
     public function Biweeklycalls(): HasMany
     {
         return $this->hasMany(Biweeklycall::class, 'study_id', 'study_id');
+    }
+
+    public function ancvisitis(): HasMany
+    {
+        return $this->hasMany(Ancvisit::class, 'patient_id', 'id');
+    }
+
+    public function ilsfollowups(): HasMany
+    {
+        return $this->hasMany(Ilsfollowup::class, 'patient_id', 'id');
     }
 }

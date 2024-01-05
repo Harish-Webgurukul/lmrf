@@ -42,11 +42,16 @@
                                         @csrf
                                         <div class="form-group row">
                                             <div class="col-sm-12 mb-3 mb-sm-0">
+                                                @if (count($facilities)==0)
+                                                <p class="text-danger">---No Facility Found----Add Facility First----</p>
+                                                @else
                                                 <label> Select Facility</label>
                                                 <select class="form-control" name="facility">
                                                 @foreach ($facilities as $facilitie)
-                                                    <option>{{$facilitie->facility_name}} <small>({{$facilitie->address}})</small></option>
+                                                    <option value="{{$facilitie->id}}">{{$facilitie->facility_name}} <small>({{$facilitie->address}})</small></option>
                                                 @endforeach
+                                                @endif
+
                                             </select>
 
                                                 @error('facility')
@@ -55,14 +60,24 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" class="form-control form-control-user" id="exampleInputStaffId"
-                                                    placeholder="Staff Id" name="staff_id">
-                                                    @error('staff_id')
+                                            <div class="col-sm-12 mb-3 mb-sm-0">
+                                                @if (count($facilities)==0)
+                                                <p class="text-danger">---No Staff Found----Add Staff First----</p>
+                                                @else
+                                                <label> Select Staff</label>
+                                                <select class="form-control" name="staff_id">
+                                                @foreach ($operators as $operator)
+                                                    <option value="{{$operator->staff_id}}">{{$operator->firstname}} {{$operator->lastname}} <small>({{$operator->staff_id}})</small></option>
+                                                @endforeach
+                                                @endif
+                                                 @error('staff_id')
                                                 <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                                             @enderror
                                             </div>
-                                            <div class="col-sm-6">
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+
                                                 <input type="text" class="form-control form-control-user" id="exampleInputStudyId"
                                                     placeholder="Study Id" name="study_id">
                                                     @error('study_id')

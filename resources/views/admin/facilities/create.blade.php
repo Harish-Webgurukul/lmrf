@@ -43,7 +43,7 @@
                                         @csrf
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="exampleInputStaffId"
-                                                placeholder="Staff Id" name="facility_name">
+                                                placeholder="Facility Name" name="facility_name">
                                                 @error('facility_name')
                                                 <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                                             @enderror
