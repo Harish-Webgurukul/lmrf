@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('study_id')->nullable();
             $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_ils_active')->default(true);
-            $table->date('hospital_visit')->nullable();
-            $table->date('is_completed')->nullable();
+            $table->tinyInteger('status')->default(0);  //pending, done failed
+            $table->string('reported_from')->nullable();  //anc or biweekly
+            $table->date('reported_on')->nullable();
             $table->string('note')->nullable();
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();

@@ -62,4 +62,12 @@ class Patient extends Model
     {
         return $this->hasMany(Ilsfollowup::class, 'patient_id', 'id');
     }
+    public function hospitalvisits(): HasMany
+    {
+        return $this->hasMany(Hospitalvisit::class, 'patient_id', 'id');
+    }
+    public function homevisits(): HasMany
+    {
+        return $this->hasMany(Homevisit::class, 'patient_id', 'id');
+    }
 }

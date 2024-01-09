@@ -19,10 +19,8 @@ return new class extends Migration
             $table->string('study_id')->nullable();
             $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
             $table->date('call_date')->nullable();
-            $table->tinyInteger('call_status')->default(0);
-            $table->tinyInteger('ils_symptons_active')->default(0);
+            $table->tinyInteger('status')->default(0); //pending, done, fail
             $table->tinyInteger('attempt_failed')->default(0);
-            $table->tinyInteger('home_visit')->default(0);
             $table->string('notes')->nullable();
             $table->timestamps();
         });

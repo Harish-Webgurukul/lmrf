@@ -126,7 +126,7 @@
                                             <td>Call Status:</td>
                                             <td>:</td>
                                             <td>
-                                                <select class="form-control form-control-sm" name="call_status">
+                                                <select class="form-control form-control-sm" name="status">
                                                     <option value="0">Pending</option>
                                                     <option value="1">Failed</option>
                                                     <option value="2">Done</option>
@@ -157,8 +157,8 @@
                                             <td>Home Visit:</td>
                                             <td>:</td>
                                             <td>
-                                                <label id="ilshome">For ILS <input type="checkbox" name="home_visit" value="active" /></label>
-                                                <label id="contacthome"> For No Contact <input type="checkbox" name="ils_visit" value="active" /></label>
+                                                <label id="ilshome">For ILS <input type="checkbox" name="home_visit" value="for_ils" /></label>
+                                                <label id="contacthome"> For No Contact <input type="checkbox" name="home_visit" value="for_contact" /></label>
                                             </td>
 
                                         </tr>
@@ -227,9 +227,9 @@
 
             });
 
-            $("select[name='call_status']").on("change", function() {
+            $("select[name='status']").on("change", function() {
                     var str = "";
-                    str = $("select[name='call_status'] option:selected").val();
+                    str = $("select[name='status'] option:selected").val();
                     if (str == 2) {
                         $('#homeVisitRow').show();
                         $('#ilsSymptonRow').show();

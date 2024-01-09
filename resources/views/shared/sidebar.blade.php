@@ -40,9 +40,9 @@
                 <h6 class="collapse-header">Biweekly Telecall:</h6>
                 <a class="collapse-item" href="{{ route('new_call') }}">New Call</a>
                 <a class="collapse-item"  href="{{ route('pending_call') }}">Pending Calls</a>
-                <a class="collapse-item" href="buttons.html">Hospital Visits</a>
-                <a class="collapse-item" href="buttons.html">Home Visit for No Contact</a>
-                <a class="collapse-item" href="buttons.html">Home Visit for ILS Sample</a>
+                <a class="collapse-item"  href="{{ route('hospital.index') }}">Hospital Visits</a>
+                <a class="collapse-item" href="{{ route('home.index_nocontact') }}">Home Visit for No Contact</a>
+                <a class="collapse-item" href="{{ route('home.index_ils') }}">Home Visit for ILS Sample</a>
                 <a class="collapse-item" href="{{ route('ils.index') }}">ILS FollowUp Call</a>
             </div>
         </div>

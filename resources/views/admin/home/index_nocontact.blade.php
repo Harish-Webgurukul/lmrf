@@ -24,7 +24,7 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-2 text-gray-800">
 
-                 ILS FollowUp
+                 Home Visit for No Contact
 
                     </h1>
 
@@ -33,7 +33,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                             ILS FollowUp</h6>
+                            Home Visit for No Contact</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -58,11 +58,11 @@
                                             <p class="mb-1">{{$ilsfollowup->patient->firstname}} {{$ilsfollowup->patient->lastname}}<p>
                                             <small>Study Id: ({{$ilsfollowup->patient->study_id}})</small> |
                                             <small>Staff Id:{{$ilsfollowup->staff_id}}</small> |
-                                            <small>Reported On:{{$ilsfollowup->reported_on}}</small>
+                                            <small>Visit date:{{$ilsfollowup->visit_date}}</small>
                                         </td>
                                         <td class="d-flex  flex-column align-content-between">
 
-                                            <a class="btn btn-sm btn-primary mb-1" href="{{ route('ils.ils_call_patient', $ilsfollowup->id) }}"><i class="fas fa-fw fa-phone-volume"></i></a>
+                                            <a class="btn btn-sm btn-primary mb-1" href="{{ route('hospital.call_patient', $ilsfollowup->id) }}"><i class="fas fa-fw fa-phone-volume"></i></a>
 
                                         </td>
                                     </tr>

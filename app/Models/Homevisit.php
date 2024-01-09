@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class Biweeklycall extends Model
+class Homevisit extends Model
 {
     use HasFactory;
 
@@ -21,14 +19,16 @@ class Biweeklycall extends Model
         'staff_id',
         'study_id',
         'patient_id',
-        'call_date',
+        'visit_date',
+        'visit_completed_on',
         'status',
-        'attempt_failed',
-        'notes',
+        'reason',
+        'note',
+        'is_deleted'
     ];
 
-    public function Patient(): BelongsTo
+    public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'study_id', 'study_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 }

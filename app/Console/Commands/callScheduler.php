@@ -31,6 +31,7 @@ class callScheduler extends Command
      */
     public function handle()
     {
+        //php artisan schedule:work
         //it will return 3 , sunday starts with zero so we add 1 to match with database value
         $dayOFWeek = date("w") + 1;
 

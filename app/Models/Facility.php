@@ -17,11 +17,13 @@ class Facility extends Model
      */
     protected $fillable = [
         'facility_name',
+        'facility_unique_id',
         'address',
         'landmark',
         'email',
         'city',
         'pincode',
+        'is_deleted'
     ];
 
     public function patient(): HasOne

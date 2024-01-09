@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Ilsfollowup extends Model
 {
+    public function getReportedOnAttribute()
+    {
+        return Carbon::parse($this->attributes['reported_on'])->format('d-M-Y');
+    }
+
     use HasFactory;
     /**
      * The attributes that are mass assignable.
@@ -19,8 +25,9 @@ class Ilsfollowup extends Model
         'study_id',
         'patient_id',
         'is_ils_active',
-        'ils_reported_on',
-        'is_completed',
+        'status',
+        'reported_from',
+        'reported_on',
         'note',
         'is_deleted'
     ];

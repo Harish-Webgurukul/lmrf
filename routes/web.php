@@ -54,10 +54,18 @@ Route::get('/pending_call_patient/{id}', [BiWeeklyController::class, 'pending_ca
 
 // ils call starts
 Route::get('/ilscalls', [BiWeeklyController::class, 'ils_index'])->name('ils.index');
+Route::get('/ils_call_patient/{id}', [BiWeeklyController::class, 'ils_call_patient'])->name('ils.ils_call_patient');
+Route::post('/ils_call_update/{id}', [BiWeeklyController::class, 'ils_call_update'])->name('ils.ils_call_update');
 // ils call ends
 
+// hospital visit
+Route::get('/hospital_index', [BiWeeklyController::class, 'hospital_index'])->name('hospital.index');
+Route::get('/hospital_call_patient/{id}', [BiWeeklyController::class, 'hospital_call_patient'])->name('hospital.call_patient');
+Route::post('/hospital_call_update/{id}', [BiWeeklyController::class, 'hospital_call_update'])->name('hospital.call_update');
 
-
+//homevisit
+Route::get('/home_index_ils', [BiWeeklyController::class, 'home_index_ils'])->name('home.index_ils');
+Route::get('/home_index_nocontact', [BiWeeklyController::class, 'home_index_nocontact'])->name('home.index_nocontact');
 
 // facilities
 Route::get('/facility/create', [FacilityController::class, 'create'])->name('facility.create');

@@ -52,7 +52,7 @@ class PatientController extends Controller
                 'address' => 'required',
                 'landmark' => 'required',
                 'city' => 'required',
-                'pincode' => 'required',
+                'pincode' => 'nullable',
                 'enrollment_date' => 'required',
                 'expected_delivery_date' => 'required',
                 'in_person_from_visit2' => 'required',

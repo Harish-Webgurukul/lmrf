@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('landmark')->nullable();
             $table->string('city')->nullable();
             $table->string('pincode')->nullable();
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }
