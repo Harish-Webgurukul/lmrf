@@ -36,17 +36,12 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 col-md-6">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Hospital Visit >
-                                @if ($pending_call ?? false)
-                                    Pending Call
-                                @else
-                                    New Call
-                                @endif
-                            </h6>
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                Home Visit > No Contact </h6>
                             </h6>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('hospital.call_update', ['id' => $patient->id]) }}">
+                            <form method="post" action="{{ route('home.update_nocontact', ['id' => $patient->id]) }}">
                                 @csrf
 
                                 <input type="hidden" name="id" value="{{ $patient->id }}" />
@@ -56,7 +51,7 @@
                                         <tr>
                                             <td>Call Date</td>
                                             <td>:</td>
-                                            <td>{{ $patient->reported_on }}</td>
+                                            <td>{{ $patient->visit_date }}</td>
                                         </tr>
                                         <tr>
                                             <td>Patient Name</td>
@@ -74,52 +69,28 @@
                                             <td>Contact1:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->contact1 != null)
-                                                    {{ $patient->Patient->contact1 }} <a class="btn btn-sm btn-success"
-                                                        href="tel: {{ $patient->Patient->contact1 }}"> Call </a>
-                                                @else
-                                                    Not Available
-                                                @endif
+                                                <input type="text" value="{{ $patient->Patient->contact1 }}" name="contact1"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td> Contact2:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->contact2 != null)
-                                                    {{ $patient->Patient->contact2 }} <a class="btn btn-sm btn-success"
-                                                        href="tel: {{ $patient->Patient->contact2 }}"> Call </a>
-                                                @else
-                                                    Not Available
-                                                @endif
-
+                                            <input  type="text" value="{{ $patient->Patient->contact2 }}" name="contact2"/>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Proxy Contact1:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->proxy_contact1 != null)
-                                                    {{ $patient->Patient->proxy_contact1 }} <a
-                                                        class="btn btn-sm btn-success"
-                                                        href="tel: {{ $patient->Patient->proxy_contact1 }}"> Call </a>
-                                                @else
-                                                    Not Available
-                                                @endif
-
+                                                <input type="text" value="{{ $patient->Patient->proxy_contact1 }}" name="proxy_contact1"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Proxy Contact2:</td>
                                             <td>:</td>
                                             <td>
-                                                @if ($patient->Patient->proxy_contact2 != null)
-                                                    {{ $patient->Patient->proxy_contact2 }} <a
-                                                        class="btn btn-sm btn-success"
-                                                        href="tel:{{ $patient->Patient->proxy_contact2 }}"> Call </a>
-                                                @else
-                                                    Not Available
-                                                @endif
-
+                                                <input value="{{ $patient->Patient->proxy_contact2 }}" name="proxy_contact2"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -131,7 +102,6 @@
                                                     <option value="1">Failed</option>
                                                     <option value="2">Done</option>
                                                 </select>
-
                                             </td>
                                         </tr>
 
@@ -148,7 +118,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="3" class="text-center"><input type="submit"
-                                                    class="btn btn-primary btn-md btn-block"></td>
+                                                    class="btn btn-primary btn-md btn-block" value="Update"></td>
                                         </tr>
 
                                     <tbody>

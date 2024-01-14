@@ -62,7 +62,7 @@
                                         </td>
                                         <td class="d-flex  flex-column align-content-between">
 
-                                            <a class="btn btn-sm btn-primary mb-1" href="{{ route('hospital.call_patient', $ilsfollowup->id) }}"><i class="fas fa-fw fa-phone-volume"></i></a>
+                                            <a class="btn btn-sm btn-primary mb-1" href="{{ route('home.edit_nocontact', $ilsfollowup->id) }}"><i class="fas fa-fw fa-phone-volume"></i></a>
 
                                         </td>
                                     </tr>

@@ -49,7 +49,7 @@ class BiWeeklyController extends Controller
                     'staff_id' => $biweeklycall['staff_id'],
                     'study_id' => $biweeklycall['study_id'],
                     'patient_id' => $biweeklycall['patient_id'],
-                    'reason' => 0,
+                    'reason' => 2,    //2 for no contact
                     'visit_date' => Carbon::now(),
                     'note' => request()->get('notes', $biweeklycall['notes'])
                 ]);
@@ -76,17 +76,6 @@ class BiWeeklyController extends Controller
                     'patient_id' => $biweeklycall['patient_id'],
                     'visit_date' => request()->get('hospital_visit'),
                     'reason' => $ils_symptons_active,
-                    'note' => request()->get('notes', $biweeklycall['notes'])
-                ]);
-            }
-            if ($home_visit != null) {
-
-                Homevisit::create([
-                    'staff_id' => $biweeklycall['staff_id'],
-                    'study_id' => $biweeklycall['study_id'],
-                    'patient_id' => $biweeklycall['patient_id'],
-                    'reason' => 1,
-                    'visit_date' => Carbon::now(),
                     'note' => request()->get('notes', $biweeklycall['notes'])
                 ]);
             }
@@ -123,7 +112,7 @@ class BiWeeklyController extends Controller
     public function ils_call_patient($id)
     {
 
-        $res =  Ilsfollowup::with('Patient')->where('id', '=', $id)->where('status', '=', 0)->firstOrFail();
+        $res =  Ilsfollowup::with('Patient')->where('id', '=', $id)->where('is_ils_active', '=', 1)->firstOrFail();
         return view('admin.ils.call_patient', ['patient' => $res]);
     }
     public function ils_call_update($id)
@@ -159,35 +148,93 @@ class BiWeeklyController extends Controller
 
     public function hospital_call_patient($id)
     {
-
         $res =  Hospitalvisit::with('Patient')->where('id', '=', $id)->where('status', '=', 0)->firstOrFail();
         return view('admin.hospital.call_patient', ['patient' => $res]);
     }
 
     public function hospital_call_update($id)
     {
+        $hospital = Hospitalvisit::with('Patient')->where('id', '=', $id)->firstOrFail();
+        $status = request()->get('status');
+        $hospital['status'] = $status;
+        $home_visit = request()->get('home_visit', '');
 
-        // dd(request()->all());
-        $hospital = Hospitalvisit::where('id', $id)->firstOrFail();
-        $hospital['status'] = request()->get('status');
+        if ($status == 1 & $home_visit == "for_contact") {
+            Homevisit::create([
+                'staff_id' => $hospital->Patient->staff_id,
+                'study_id' => $hospital->Patient->study_id,
+                'patient_id' => $hospital->Patient->id,
+                'reason' => 1,    //1 for ils followup
+                'visit_date' => Carbon::now(),
+                'note' => request()->get('notes', '')
+            ]);
+        } else {
+            $hospital['visit_completed_on'] = Carbon::now();
+        }
+
         $hospital['note'] = request()->get('notes');
-        $hospital['visit_completed_on'] = Carbon::now();
         $hospital->save();
-
         return redirect()->route('hospital.index')->with('success', 'Data Update Successfully1');
     }
 
     // HomeVisit
-
     public function home_index_ils()
     {
         $ilsfollowups = Homevisit::with('patient')->where('status', '=', 0)->where('reason', '=', 1)->get();
-        return view('admin.home.index_ils', ['ilsfollowups' => $ilsfollowups]);
+        return view('admin.home.contact_ils', ['ilsfollowups' => $ilsfollowups]);
     }
+
+    public function home_edit_ils($id)
+    {
+        $ils = true;
+        $res = Homevisit::with('patient')->where('id', '=', $id)->firstOrFail();
+        return view('admin.home.call_patient', ['patient' => $res, 'ils' => $ils]);
+    }
+
+    public function home_update_ils($id)
+    {
+
+        $home_ils = Homevisit::with('Patient')->where('id', '=', $id)->firstOrFail();
+        $status = request()->get('status', '');
+        $ilsresolve = request()->get('ilsresolve', '');
+        $notes = request()->get('notes', '');
+        if ($status == 2 && $ilsresolve == "true") {
+            $home_ils['status'] = $status;
+            $home_ils['note'] = $notes;
+        } else {
+            $home_ils['status'] = $status;
+            $home_ils['note'] = $notes;
+        }
+
+        $home_ils->save();
+        return redirect()->route('home.index_ils')->with('success', 'Data Update Successfully1');
+    }
+
 
     public function home_index_nocontact()
     {
         $ilsfollowups = Homevisit::with('patient')->where('status', '=', 0)->where('reason', '=', 2)->get();
         return view('admin.home.index_nocontact', ['ilsfollowups' => $ilsfollowups]);
+    }
+    public function home_edit_nocontact($id)
+    {
+        $res = Homevisit::with('patient')->where('id', '=', $id)->firstOrFail();
+        return view('admin.home.call_patient', ['patient' => $res]);
+    }
+
+    public function home_update_nocontact($id)
+    {
+        $home_visit = Homevisit::with('Patient')->where('id', '=', $id)->firstOrFail();
+
+        $home_visit->Patient['contact1'] = request()->get('contact1');
+        $home_visit->Patient['contact2'] = request()->get('contact2');
+        $home_visit->Patient['proxy_contact1'] = request()->get('proxy_contact1');
+        $home_visit->Patient['proxy_contact2'] = request()->get('proxy_contact2');
+
+        $home_visit['status'] = request()->get('status');
+        $home_visit['visit_completed_on'] = Carbon::now();
+        $home_visit->Patient->save();
+        $home_visit->save();
+        return redirect()->route('home.index_nocontact')->with('success', 'Data Update Successfully1');
     }
 }

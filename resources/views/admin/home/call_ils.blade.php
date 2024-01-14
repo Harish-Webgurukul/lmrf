@@ -36,27 +36,26 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 col-md-6">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Hospital Visit >
-                                @if ($pending_call ?? false)
-                                    Pending Call
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                @if ($ils ?? false)
+                                Home Visit > ILS Sample
                                 @else
-                                    New Call
+                                Home Visit > No Contact
                                 @endif
-                            </h6>
+                               </h6>
                             </h6>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('hospital.call_update', ['id' => $patient->id]) }}">
+                            <form method="post" action="{{ route('home.update_ils', ['id' => $patient->id]) }}">
                                 @csrf
-
                                 <input type="hidden" name="id" value="{{ $patient->id }}" />
-                                <input type="hidden" name="call_type" value="{{ $pending_call ?? 0 }}" />
+                                <input type="hidden" name="ils_type" value="{{ $ils ?? 0 }}" />
                                 <table class="table table-borderless table-striped table-sm" width="100%" cellspacing="0">
                                     <tbody>
                                         <tr>
                                             <td>Call Date</td>
                                             <td>:</td>
-                                            <td>{{ $patient->reported_on }}</td>
+                                            <td>{{ $patient->visit_date }}</td>
                                         </tr>
                                         <tr>
                                             <td>Patient Name</td>
@@ -131,18 +130,8 @@
                                                     <option value="1">Failed</option>
                                                     <option value="2">Done</option>
                                                 </select>
-
                                             </td>
                                         </tr>
-                                        <tr id="homeVisitRow">
-                                            <td>Home Visit:</td>
-                                            <td>:</td>
-                                            <td>
-                                                <label id="contacthome"> For No Contact <input type="checkbox" name="home_visit" value="for_contact" /></label>
-                                            </td>
-
-                                        </tr>
-
 
                                         <tr>
                                             <td>Note :</td>
@@ -156,9 +145,8 @@
                                         </tr>
                                         <tr>
                                             <td colspan="3" class="text-center"><input type="submit"
-                                                    class="btn btn-primary btn-md btn-block"></td>
+                                                    class="btn btn-primary btn-md btn-block" value="Update"></td>
                                         </tr>
-
                                     <tbody>
                                 </table>
                             </form>
@@ -190,21 +178,24 @@
 @section('custom_javascript')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#homeVisitRow').hide();
 
             $("select[name='status']").on("change", function() {
                     var str = "";
                     str = $("select[name='status'] option:selected").val();
-                if (str == 1) {
-                        $('#homeVisitRow').show();
-
-                    }
-                    else{
+                    if (str == 2) {
+                        $('#ilsSymptonRow').show();
+                        $('#contacthome').hide();
                         $('#homeVisitRow').hide();
+                    }  else {
+                        $('#hospitalVisitRow').hide();
+                        $('#homeVisitRow').hide();
+                        $('#ilsSymptonRow').hide();
                     }
 
                 })
                 .trigger("change");
+
         });
     </script>
 @endsection
+

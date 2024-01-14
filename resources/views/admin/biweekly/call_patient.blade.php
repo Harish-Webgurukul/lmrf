@@ -157,7 +157,6 @@
                                             <td>Home Visit:</td>
                                             <td>:</td>
                                             <td>
-                                                <label id="ilshome">For ILS <input type="checkbox" name="home_visit" value="for_ils" /></label>
                                                 <label id="contacthome"> For No Contact <input type="checkbox" name="home_visit" value="for_contact" /></label>
                                             </td>
 
@@ -218,10 +217,10 @@
             $('#ilscheck').change(function() {
                 if (this.checked) {
                     $('#hospitalVisitRow').show();
-                    $('#ilshome').show();
+
                 } else {
                     $('#hospitalVisitRow').hide();
-                    $('#ilshome').hide();
+
 
                 }
 
@@ -231,15 +230,13 @@
                     var str = "";
                     str = $("select[name='status'] option:selected").val();
                     if (str == 2) {
-                        $('#homeVisitRow').show();
                         $('#ilsSymptonRow').show();
                         $('#contacthome').hide();
-
+                        $('#homeVisitRow').hide();
                     } else if (str == 1) {
                         $('#homeVisitRow').show();
                         $('#hospitalVisitRow').hide();
                         $('#ilsSymptonRow').hide();
-                        $('#ilshome').hide();
                         $('#contacthome').show();
                     } else {
                         $('#hospitalVisitRow').hide();

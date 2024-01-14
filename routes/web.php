@@ -65,7 +65,13 @@ Route::post('/hospital_call_update/{id}', [BiWeeklyController::class, 'hospital_
 
 //homevisit
 Route::get('/home_index_ils', [BiWeeklyController::class, 'home_index_ils'])->name('home.index_ils');
+Route::get('/home_edit_ils/{id}', [BiWeeklyController::class, 'home_edit_ils'])->name('home.edit_ils');
+Route::post('/home_update_ils/{id}', [BiWeeklyController::class, 'home_update_ils'])->name('home.update_ils');
+
+
 Route::get('/home_index_nocontact', [BiWeeklyController::class, 'home_index_nocontact'])->name('home.index_nocontact');
+Route::get('/home_edit_nocontact/{id}', [BiWeeklyController::class, 'home_edit_nocontact'])->name('home.edit_nocontact');
+Route::post('/home_update_nocontact/{id}', [BiWeeklyController::class, 'home_update_nocontact'])->name('home.update_nocontact');
 
 // facilities
 Route::get('/facility/create', [FacilityController::class, 'create'])->name('facility.create');
