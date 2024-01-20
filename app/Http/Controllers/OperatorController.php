@@ -31,6 +31,7 @@ class OperatorController extends Controller
 
     public function store()
     {
+
         $validated = request()->validate(
             [
                 'staff_id' => 'required',
