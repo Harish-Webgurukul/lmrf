@@ -63,7 +63,6 @@ class FacilityController extends Controller
                 'landmark' => 'nullable',
                 'city' => 'nullable|min:4',
                 'pincode' => 'nullable|min:6',
-
             ]
         );
 

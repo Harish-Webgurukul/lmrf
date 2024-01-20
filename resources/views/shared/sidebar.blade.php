@@ -76,6 +76,8 @@
     <div class="sidebar-heading">
         Staff and Reports
     </div>
+@can('admin')
+
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -93,6 +95,7 @@
             </div>
         </div>
     </li>
+    @endcan
      <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatients"
@@ -105,10 +108,16 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Patient details</h6>
                 <a class="collapse-item"href="{{ route('patient.index') }}">View</a>
+                @can('admin')
                 <a class="collapse-item" href="{{ route('patient.create') }}">Add</a>
+                @endcan
+
             </div>
         </div>
     </li>
+    @can('admin')
+
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFacility"
@@ -125,7 +134,7 @@
             </div>
         </div>
     </li>
-
+    @endcan
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="charts.html">

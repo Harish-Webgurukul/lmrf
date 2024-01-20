@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Facility extends Model
@@ -25,9 +26,8 @@ class Facility extends Model
         'pincode',
         'is_deleted'
     ];
-
-    public function patient(): HasOne
-    {
-        return $this->hasOne(Patient::class, 'facility_id', 'id');
-    }
+    // public function patients(): HasMany
+    // {
+    //     return $this->hasMany(Patient::class, 'facility_id', 'id');
+    // }
 }

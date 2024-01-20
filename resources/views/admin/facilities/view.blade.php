@@ -22,7 +22,7 @@
                   <!-- Page Heading -->
                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-2 text-gray-800">View Facilities</h1>
-                    <a href="{{ route('facility.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Add Facility</a>
+                    <a href="{{ route('facility.create') }}" class="btn btn-sm btn-primary shadow-sm"> Add Facility</a>
                 </div>
 
                 <!-- DataTales Example -->

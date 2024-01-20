@@ -23,7 +23,7 @@
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-2 text-gray-800">View Operators</h1>
-                    <a href="{{ route('add_operator') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Add Operators</a>
+                    <a href="{{ route('add_operator') }}" class="btn btn-sm btn-primary shadow-sm"> Add Operators</a>
                 </div>
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -65,13 +65,17 @@
                                         <td>{{$operator->contact1}}</td>
                                         <td>{{$operator->contact2}}</td>
                                         <td class="d-flex justify-content-between">
+                                            @can('admin')
                                             <a class="btn btn-sm btn-primary" href="{{ route('view_operator', $operator->id) }}"><i class="fas fa-fw fa-eye"></i></a>
                                             <a class="btn btn-sm btn-warning" href="{{ route('edit_operator', $operator->id) }}"><i class="fas fa-fw fa-edit"></i></a>
+
                                             <form method="POST" action="{{ route('delete_operator', $operator->id) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <button class="ms-1 btn-sm btn btn-danger"> <i class="fas fa-fw fa-trash"></i> </button>
                                             </form>
+                                            @endcan
+
 
                                         </td>
                                     </tr>

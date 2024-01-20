@@ -9,6 +9,7 @@ use App\Models\Ilsfollowup;
 use App\Models\Patient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BiWeeklyController extends Controller
 {
@@ -91,7 +92,14 @@ class BiWeeklyController extends Controller
     {
         $pending_call = true;
         $currentDate = Carbon::now()->startOfDay();
-        $res =  Biweeklycall::with('Patient')->where('status', '=', 0)->where('call_date', '<', $currentDate)->get();
+        // dd(Auth()->user()->staff_id);
+
+        if (Gate::allows('admin')) {
+            $res = Biweeklycall::with('Patient')->where('status', '=', 0)->where('call_date', '<', $currentDate)->get();
+        } else {
+            $res = Biweeklycall::with('Patient')->where('staff_id', '=', Auth()->user()->staff_id)->where('status', '=', 0)->where('call_date', '<', $currentDate)->get();
+        }
+
         return view('admin.biweekly.new_call', ['patients' => $res, 'pending_call' => $pending_call]);
     }
 

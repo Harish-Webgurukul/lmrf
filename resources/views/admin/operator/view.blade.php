@@ -131,7 +131,7 @@
                                         </tr>
 
                                         <tr>
-                                            <th>Email</th>
+                                            <th>Contact2</th>
                                             <td>{{ $user->contact2 }}</td>
                                         </tr>
                                         <tr>

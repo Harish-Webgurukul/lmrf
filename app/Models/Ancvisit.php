@@ -14,17 +14,20 @@ class Ancvisit extends Model
 
     public function getFromDateAttribute()
     {
-        return Carbon::parse($this->attributes['from_date'])->format('d-M-Y');
+
+        return $this->attributes['from_date'] == null ?  " " : Carbon::parse($this->attributes['from_date'])->format('d-M-Y');
     }
     public function getToDateAttribute()
     {
-        return Carbon::parse($this->attributes['to_date'])->format('d-M-Y');
+        return $this->attributes['to_date'] == null ?  " " : Carbon::parse($this->attributes['to_date'])->format('d-M-Y');
     }
     public function getVisitCompletedOnAttribute()
     {
-        if ($this->attributes['visit_completed_on'] != NULL) {
-            return Carbon::parse($this->attributes['visit_completed_on'])->format('d-M-Y');
-        }
+
+        return $this->attributes['visit_completed_on'] == null ?  "Pending" : Carbon::parse($this->attributes['visit_completed_on'])->format('d-M-Y');
+        // if ($this->attributes['visit_completed_on'] != NULL) {
+        //     return Carbon::parse($this->attributes['visit_completed_on'])->format('d-M-Y');
+        // }
     }
 
 

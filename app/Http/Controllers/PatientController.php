@@ -6,11 +6,12 @@ use App\Models\Ancvisit;
 use App\Models\Facility;
 use App\Models\Patient;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
-    //
+
 
     public function create()
     {
@@ -29,44 +30,43 @@ class PatientController extends Controller
 
     public function show($id)
     {
-        $patient = Patient::with('ancvisitis')->where('is_deleted', '=', 0)->firstWhere('id', $id);
+        $patient = Patient::with(['ancvisits', 'facility_data'])->where('is_deleted', '=', 0)->firstWhere('id', $id);
+
         return view('admin.patient.show', ['patient' => $patient]);
     }
 
 
     public function store()
     {
-        // dd(request()->all());
+
         $validated = request()->validate(
             [
                 'staff_id' => 'required',
                 'study_id' => 'required',
                 'firstname' => 'required',
                 'lastname' => 'required',
-                'email' => 'required',
+                'email' => 'nullable',
                 'contact1' => 'required',
                 'contact2' => 'nullable|min:8|max:13',
                 'proxy_contact1' => 'nullable|min:8|max:13',
                 'proxy_contact2' => 'nullable|min:8|max:13',
                 'facility' => 'required',
                 'address' => 'required',
-                'landmark' => 'required',
+                'landmark' => 'nullable',
                 'city' => 'required',
                 'pincode' => 'nullable',
                 'enrollment_date' => 'required',
-                'expected_delivery_date' => 'required',
-                'in_person_from_visit2' => 'required',
-                'in_person_to_visit2' => 'required',
-                'in_person_from_visit3' => 'required',
-                'in_person_to_visit3' => 'required',
-                'in_person_from_visit4' => 'required',
-                'in_person_to_visit4' => 'required',
-                'in_person_from_visit5' => 'required',
-                'in_person_to_visit5' => 'required',
-                'in_person_from_visit_final' => 'required',
-                'in_person_to_visit_final' => 'required',
-
-
+                'expected_delivery_date' => 'nullable',
+                'in_person_from_visit2' => 'nullable',
+                'in_person_to_visit2' => 'nullable',
+                'in_person_from_visit3' => 'nullable',
+                'in_person_to_visit3' => 'nullable',
+                'in_person_from_visit4' => 'nullable',
+                'in_person_to_visit4' => 'nullable',
+                'in_person_from_visit5' => 'nullable',
+                'in_person_to_visit5' => 'nullable',
+                'in_person_from_visit_final' => 'nullable',
+                'in_person_to_visit_final' => 'nullable'
             ]
         );
 
@@ -111,5 +111,87 @@ class PatientController extends Controller
         $patient = Patient::where('id', $id)->firstOrFail();
         $patient->delete();
         return redirect()->route('patient.index')->with('success', 'Patient deleted successfully!');
+    }
+
+    public function patient_edit($id)
+    {
+        $facilities = Facility::get();
+        $operators = User::where('user_role', '2')->get();
+        $patient = Patient::with('ancvisits')->where('id', $id)->firstOrFail();
+        // dd($patient->ancvisits[4]->from_date);
+        return view('admin.patient.edit', compact('patient', 'facilities', 'operators'));
+    }
+
+    public function patient_update($id)
+    {
+
+        $patient = Patient::with('ancvisits')->where('id', $id)->firstOrFail();
+        // dd($patient);
+        $validated = request()->validate(
+            [
+                'staff_id' => 'required',
+                'study_id' => 'required',
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'nullable',
+                'contact1' => 'required',
+                'contact2' => 'nullable|min:8|max:13',
+                'proxy_contact1' => 'nullable|min:8|max:13',
+                'proxy_contact2' => 'nullable|min:8|max:13',
+                'facility' => 'required',
+                'address' => 'required',
+                'landmark' => 'nullable',
+                'city' => 'required',
+                'pincode' => 'nullable',
+                'enrollment_date' => 'required',
+                'expected_delivery_date' => 'nullable',
+                'in_person_from_visit2' => 'nullable',
+                'in_person_to_visit2' => 'nullable',
+                'in_person_from_visit3' => 'nullable',
+                'in_person_to_visit3' => 'nullable',
+                'in_person_from_visit4' => 'nullable',
+                'in_person_to_visit4' => 'nullable',
+                'in_person_from_visit5' => 'nullable',
+                'in_person_to_visit5' => 'nullable',
+                'in_person_from_visit_final' => 'nullable',
+                'in_person_to_visit_final' => 'nullable'
+            ]
+        );
+
+        $patient->staff_id =  $validated['staff_id'];
+        $patient->study_id =  $validated['study_id'];
+        $patient->facility_id =  $validated['facility'];
+        $patient->firstname =  $validated['firstname'];
+        $patient->lastname =  $validated['lastname'];
+        $patient->email =  $validated['email'];
+        $patient->contact1 =  $validated['contact1'];
+        $patient->contact2 =  $validated['contact2'];
+        $patient->proxy_contact1 =  $validated['proxy_contact1'];
+        $patient->proxy_contact2 =  $validated['proxy_contact2'];
+        $patient->facility =  $validated['facility'];
+        $patient->address =  $validated['address'];
+        $patient->landmark =  $validated['landmark'];
+        $patient->city =  $validated['city'];
+        $patient->pincode =  $validated['pincode'];
+        $patient->enrollment_date =  $validated['enrollment_date'];
+        $patient->expected_delivery_date =  $validated['expected_delivery_date'];
+        $patient->ancvisits[0]->from_date = $validated['in_person_from_visit2'];
+        $patient->ancvisits[0]->to_date = $validated['in_person_to_visit2'];
+        $patient->ancvisits[1]->from_date = $validated['in_person_from_visit3'];
+        $patient->ancvisits[1]->to_date = $validated['in_person_to_visit3'];
+        $patient->ancvisits[2]->from_date = $validated['in_person_from_visit4'];
+        $patient->ancvisits[2]->to_date = $validated['in_person_to_visit4'];
+        $patient->ancvisits[3]->from_date = $validated['in_person_from_visit5'];
+        $patient->ancvisits[3]->to_date = $validated['in_person_to_visit5'];
+        $patient->ancvisits[4]->from_date = $validated['in_person_from_visit_final'];
+        $patient->ancvisits[4]->to_date = $validated['in_person_to_visit_final'];
+        $patient->ancvisits[0]->save();
+        $patient->ancvisits[1]->save();
+        $patient->ancvisits[2]->save();
+        $patient->ancvisits[3]->save();
+        $patient->ancvisits[4]->save();
+        $patient->save();
+
+        return redirect()->route('patient.index')->with('success', 'Patient Added successfully!');
     }
 }

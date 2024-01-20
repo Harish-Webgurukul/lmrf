@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('user_role')->default(2);
-            $table->boolean('is_admin')->default(false);
+            $table->integer('user_role')->default(1);
+            $table->boolean('is_superadmin')->default(false);
             $table->string('contact1')->nullable();
             $table->string('contact2')->nullable();
             $table->string('staff_id')->nullable();

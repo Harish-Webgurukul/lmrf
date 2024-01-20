@@ -22,7 +22,10 @@
                   <!-- Page Heading -->
                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-2 text-gray-800">View Patients</h1>
+                    @can('admin')
                     <a href="{{ route('patient.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Add Patient</a>
+
+                    @endcan
                 </div>
 
                 <!-- DataTales Example -->
@@ -67,13 +70,16 @@
                                         <td>{{$patient->contact2}}</td>
                                         <td class="d-flex justify-content-between">
                                             <a href="{{ route('patient.show', $patient->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-fw fa-eye"></i></a>
+                                            @can('admin')
+                                            <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
 
-                                            <a href="" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
-                                            <form method="POST" action="{{ route('patient.destroy', $patient->id) }}">
-                                                @csrf
-                                                @method('delete')
-                                                <button class="ms-1 btn-sm btn btn-danger"> <i class="fas fa-fw fa-trash"></i> </button>
-                                            </form>
+                                           <form method="POST" action="{{ route('patient.destroy', $patient->id) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="ms-1 btn-sm btn btn-danger"> <i class="fas fa-fw fa-trash"></i> </button>
+                                        </form>
+                                           @endcan
+
 
                                         </td>
 

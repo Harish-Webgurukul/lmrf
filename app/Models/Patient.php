@@ -5,7 +5,9 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Patient extends Model
 {
@@ -13,7 +15,8 @@ class Patient extends Model
 
     public function getEnrollmentDateAttribute()
     {
-        return Carbon::parse($this->attributes['enrollment_date'])->format('d-M-Y');
+
+        return $this->attributes['enrollment_date'] == null ?  " " : Carbon::parse($this->attributes['enrollment_date'])->format('d-M-Y');
     }
     public function getExpectedDeliveryDateAttribute()
     {
@@ -53,7 +56,7 @@ class Patient extends Model
         return $this->hasMany(Biweeklycall::class, 'study_id', 'study_id');
     }
 
-    public function ancvisitis(): HasMany
+    public function ancvisits(): HasMany
     {
         return $this->hasMany(Ancvisit::class, 'patient_id', 'id');
     }
@@ -69,5 +72,10 @@ class Patient extends Model
     public function homevisits(): HasMany
     {
         return $this->hasMany(Homevisit::class, 'patient_id', 'id');
+    }
+
+    public function facility_data(): BelongsTo
+    {
+        return $this->belongsTo(Facility::class, 'facility_id', 'id');
     }
 }

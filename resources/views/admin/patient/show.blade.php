@@ -86,7 +86,7 @@
                                                 <tr>
                                                     <td>Facility</td>
                                                      <td>:</td>
-                                                    <td>{{ $patient->facility }}</td>
+                                                    <td>{{ $patient->facility_data->facility_name }}</td>
                                                 <tr>
                                                 <tr>
                                                     <td>Address</td>
@@ -146,16 +146,13 @@
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
-                                                    @forelse ($patient->ancvisitis as $ancvisit)
+                                                    @forelse ($patient->ancvisits as $ancvisit)
                                                         <tr>
                                                             <td>ANC {{ $ancvisit->visit_number }}</td>
                                                             <td>{{ $ancvisit->from_date }}</td>
                                                             <td>{{ $ancvisit->to_date }}</td>
                                                             <td>{{ $ancvisit->status ? 'Completed' : 'Pending' }}</td>
                                                             <td>{{ $ancvisit->visit_completed_on }}</td>
-
-
-
                                                         </tr>
                                                     @empty
                                                         <tr>
