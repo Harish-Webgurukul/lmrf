@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Patient extends Model
 {
@@ -20,7 +19,12 @@ class Patient extends Model
     }
     public function getExpectedDeliveryDateAttribute()
     {
-        return Carbon::parse($this->attributes['enrollment_date'])->format('d-M-Y');
+        return Carbon::parse($this->attributes['expected_delivery_date'])->format('d-M-Y');
+    }
+
+    public function getDeliveryDateAttribute()
+    {
+        return $this->attributes['delivery_date'] == null ?  " " : Carbon::parse($this->attributes['delivery_date'])->format('d-M-Y');
     }
 
 

@@ -31,7 +31,7 @@ class PatientController extends Controller
     public function show($id)
     {
         $patient = Patient::with(['ancvisits', 'facility_data'])->where('is_deleted', '=', 0)->firstWhere('id', $id);
-
+        // dd($patient);
         return view('admin.patient.show', ['patient' => $patient]);
     }
 
@@ -45,11 +45,10 @@ class PatientController extends Controller
                 'study_id' => 'required',
                 'firstname' => 'required',
                 'lastname' => 'required',
-                'email' => 'nullable',
-                'contact1' => 'required',
-                'contact2' => 'nullable|min:8|max:13',
-                'proxy_contact1' => 'nullable|min:8|max:13',
-                'proxy_contact2' => 'nullable|min:8|max:13',
+                'contact1' => 'nullable|digits:10',
+                'contact2' => 'nullable|digits:10',
+                'proxy_contact1' => 'nullable|digits:10',
+                'proxy_contact2' => 'nullable|digits:10',
                 'facility' => 'required',
                 'address' => 'required',
                 'landmark' => 'nullable',
@@ -57,6 +56,7 @@ class PatientController extends Controller
                 'pincode' => 'nullable',
                 'enrollment_date' => 'required',
                 'expected_delivery_date' => 'nullable',
+                'delivery_date' => 'nullable',
                 'in_person_from_visit2' => 'nullable',
                 'in_person_to_visit2' => 'nullable',
                 'in_person_from_visit3' => 'nullable',
@@ -78,7 +78,6 @@ class PatientController extends Controller
                 'facility_id' =>  $validated['facility'],
                 'firstname' =>  $validated['firstname'],
                 'lastname' =>  $validated['lastname'],
-                'email' =>  $validated['email'],
                 'contact1' =>  $validated['contact1'],
                 'contact2' =>  $validated['contact2'],
                 'proxy_contact1' =>  $validated['proxy_contact1'],
@@ -90,6 +89,7 @@ class PatientController extends Controller
                 'pincode' =>  $validated['pincode'],
                 'enrollment_date' =>  $validated['enrollment_date'],
                 'expected_delivery_date' =>  $validated['expected_delivery_date'],
+                'delivery_date' =>  $validated['delivery_date'],
             ]
         );
 
@@ -134,10 +134,10 @@ class PatientController extends Controller
                 'firstname' => 'required',
                 'lastname' => 'required',
                 'email' => 'nullable',
-                'contact1' => 'required',
-                'contact2' => 'nullable|min:8|max:13',
-                'proxy_contact1' => 'nullable|min:8|max:13',
-                'proxy_contact2' => 'nullable|min:8|max:13',
+                'contact1' => 'nullable|digits:10',
+                'contact2' => 'nullable|digits:10',
+                'proxy_contact1' => 'nullable|digits:10',
+                'proxy_contact2' => 'nullable|digits:10',
                 'facility' => 'required',
                 'address' => 'required',
                 'landmark' => 'nullable',
@@ -145,6 +145,7 @@ class PatientController extends Controller
                 'pincode' => 'nullable',
                 'enrollment_date' => 'required',
                 'expected_delivery_date' => 'nullable',
+                'delivery_date' => 'nullable',
                 'in_person_from_visit2' => 'nullable',
                 'in_person_to_visit2' => 'nullable',
                 'in_person_from_visit3' => 'nullable',
@@ -175,6 +176,7 @@ class PatientController extends Controller
         $patient->pincode =  $validated['pincode'];
         $patient->enrollment_date =  $validated['enrollment_date'];
         $patient->expected_delivery_date =  $validated['expected_delivery_date'];
+        $patient->delivery_date =  $validated['delivery_date'];
         $patient->ancvisits[0]->from_date = $validated['in_person_from_visit2'];
         $patient->ancvisits[0]->to_date = $validated['in_person_to_visit2'];
         $patient->ancvisits[1]->from_date = $validated['in_person_from_visit3'];

@@ -282,7 +282,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label for="inpersonfromvisitfinal">InPerson Visit Final from (dd/mm/yyyy)</label>
+                                                <label for="inpersonfromvisitfinal">final study follow up at 42 day (dd/mm/yyyy)</label>
                                                 <input type="date" class="form-control form-control-user" id="inpersonfromvisitfinal"
                                                 placeholder="InPerson Final from" name="in_person_from_visit_final" value="{{$patient->ancvisits[4]->from_date==" " ? " ":date_format(date_create($patient->ancvisits[4]->from_date),"Y-m-d")}}">
                                                 @error('in_person_from_visit_final')
@@ -290,7 +290,7 @@
                                             @enderror
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="inpersontoFinal">InPerson Visit Final to (dd/mm/yyyy)</label>
+                                                <label for="inpersontoFinal">final study follow up at 42 day (dd/mm/yyyy)</label>
                                                 <input type="date" class="form-control form-control-user"
                                                     id="inpersontoFinal" placeholder="InPerson Final to" name="in_person_to_visit_final" value="{{$patient->ancvisits[4]->to_date==" " ? " ":date_format(date_create($patient->ancvisits[4]->to_date),"Y-m-d")}}">
                                                     @error('in_person_to_visit_final')
@@ -298,6 +298,18 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label for="DeliveryDate">Delivery Date(leave empty on initial register)</label>
+                                                <input type="date" class="form-control form-control-user"
+                                                    id="DeliveryDate" placeholder=" Delivery Date" name="delivery_date" value="{{$patient->delivery_date==null?" ":date_format(date_create($patient->delivery_date),"Y-m-d")}}">
+                                                    @error('delivery_date')
+                                                    <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                            Update
                                         </button>

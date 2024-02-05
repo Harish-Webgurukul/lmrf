@@ -118,6 +118,11 @@
                                                     <td>:</td>
                                                     <td>{{ $patient->expected_delivery_date }}</td>
                                                 <tr>
+                                                    <tr>
+                                                        <td>Delivery date</td>
+                                                        <td>:</td>
+                                                        <td>{{ $patient->delivery_date }}</td>
+                                                    <tr>
                                             </table>
 
                                     </div>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('facility_id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('contact1')->nullable();
             $table->string('contact2')->nullable();
             $table->string('proxy_contact1')->nullable();
