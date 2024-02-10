@@ -106,9 +106,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Patient details</h6>
                 <a class="collapse-item"href="{{ route('patient.index') }}">View</a>
-                @can('admin')
+
                 <a class="collapse-item" href="{{ route('patient.create') }}">Add</a>
-                @endcan
+
 
             </div>
         </div>
