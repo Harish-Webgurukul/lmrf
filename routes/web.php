@@ -39,11 +39,11 @@ Route::delete('/delete_operator/{user}', [OperatorController::class, 'destroy'])
 // operator route--end
 // patient route--start
 Route::get('/patients', [PatientController::class, 'index'])->name('patient.index')->middleware(['auth']);
-Route::get('/patients/create', [PatientController::class, 'create'])->name('patient.create')->middleware(['auth', 'can:admin']);
-Route::post('/patients', [PatientController::class, 'store'])->name('patient.store')->middleware(['auth', 'can:admin']);
+Route::get('/patients/create', [PatientController::class, 'create'])->name('patient.create')->middleware(['auth']);
+Route::post('/patients', [PatientController::class, 'store'])->name('patient.store')->middleware(['auth']);
 Route::delete('/patients/{id}', [PatientController::class, 'destroy'])->name('patient.destroy')->middleware(['auth', 'can:admin']);
-Route::get('/patient_edit/{id}', [PatientController::class, 'patient_edit'])->name('patient.edit')->middleware(['auth', 'can:admin']);
-Route::post('/patient_update/{id}', [PatientController::class, 'patient_update'])->name('patient.update')->middleware(['auth', 'can:admin']);
+Route::get('/patient_edit/{id}', [PatientController::class, 'patient_edit'])->name('patient.edit')->middleware(['auth']);
+Route::post('/patient_update/{id}', [PatientController::class, 'patient_update'])->name('patient.update')->middleware(['auth']);
 
 Route::get('/patients/{id}', [PatientController::class, 'show'])->name('patient.show')->middleware(['auth']);;
 // patient route--ends
