@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-12 mb-3 ">
-                                                @if (count($facilities)==0)
+                                                @if (count($operators)==0)
                                                 <p class="text-danger">---No Staff Found----Add Staff First----</p>
                                                 @else
                                                 <label> Select Staff</label>

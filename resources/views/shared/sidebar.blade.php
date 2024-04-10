@@ -127,7 +127,7 @@
         <div id="collapseFacility" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Facilities details</h6>
-                <a class="collapse-item"href="{{ route('facility.view') }}">View</a>
+                <a class="collapse-item" href="{{ route('facility.view') }}">View</a>
                 <a class="collapse-item" href="{{ route('facility.create') }}">Add</a>
             </div>
         </div>
@@ -135,7 +135,7 @@
     @endcan
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('reports') }}">
             <i class="fas fa-fw fa-print"></i>
             <span>Reports</span></a>
     </li>

@@ -20,10 +20,11 @@ class DashboardController extends Controller
         // dd(auth()->user());
         // dd(auth()->user()->firstname);
         // dd(auth()->user()->is_admin);
-        $patientcount = Patient::where('is_deleted', '=', 0)->count();
-        $facilitycount = Facility::where('is_deleted', '=', 0)->count();
-        // dd($patientcount);
-        return view('dashboard', compact('patientcount', 'facilitycount'));
+
+        // $facility = Facility::whereHas('patients')->withCount('patients')->get();
+        $facility = Facility::withCount('patients')->get();
+        // dd($facility);
+        return view('dashboard', compact('facility'));
     }
 
     public function login()

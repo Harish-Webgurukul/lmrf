@@ -23,7 +23,15 @@ class PatientController extends Controller
 
     public function index()
     {
-        $patients = Patient::where('is_deleted', '=', 0)->orderBy('created_at', 'DESC')->get();
+
+        if (auth()->user()->is_superadmin) {
+            $patients = Patient::where('is_deleted', '=', 0)->orderBy('created_at', 'DESC')->get();
+        } else {
+
+            $patients = Patient::where('is_deleted', '=', 0)->where('staff_id', '=', auth()->user()->staff_id)->orderBy('created_at', 'DESC')->get();
+        }
+
+
         return view('admin.patient.index', ['patients' => $patients]);
     }
 
@@ -195,5 +203,47 @@ class PatientController extends Controller
         $patient->save();
 
         return redirect()->route('patient.index')->with('success', 'Patient Added successfully!');
+    }
+
+
+    public function patient_staff_edit($id)
+    {
+
+        $patient = Patient::with('ancvisits')->where('id', $id)->where('staff_id', '=', auth()->user()->staff_id)->firstOrFail();
+        return view('admin.patient.staffp_edit', compact('patient'));
+    }
+    public function patient_staff_update($id)
+    {
+
+        $patient = Patient::where('id', $id)->firstOrFail();
+        // dd($patient);
+        $validated = request()->validate(
+            [
+
+                'contact1' => 'nullable|digits:10',
+                'contact2' => 'nullable|digits:10',
+                'proxy_contact1' => 'nullable|digits:10',
+                'proxy_contact2' => 'nullable|digits:10',
+                'address' => 'required',
+                'landmark' => 'nullable',
+                'city' => 'required',
+                'pincode' => 'nullable',
+                'delivery_date' => 'nullable',
+
+
+            ]
+        );
+
+        $patient->contact1 =  $validated['contact1'];
+        $patient->contact2 =  $validated['contact2'];
+        $patient->proxy_contact1 =  $validated['proxy_contact1'];
+        $patient->proxy_contact2 =  $validated['proxy_contact2'];
+        $patient->address =  $validated['address'];
+        $patient->landmark =  $validated['landmark'];
+        $patient->city =  $validated['city'];
+        $patient->pincode =  $validated['pincode'];
+        $patient->delivery_date =  $validated['delivery_date'];
+        $patient->save();
+        return redirect()->route('patient.index')->with('success', 'Patient Updated successfully!');
     }
 }

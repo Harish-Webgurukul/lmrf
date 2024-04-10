@@ -26,8 +26,9 @@ class Facility extends Model
         'pincode',
         'is_deleted'
     ];
-    // public function patients(): HasMany
-    // {
-    //     return $this->hasMany(Patient::class, 'facility_id', 'id');
-    // }
+
+    public function patients(): HasMany
+    {
+        return $this->hasMany(Patient::class, 'facility_id');
+    }
 }

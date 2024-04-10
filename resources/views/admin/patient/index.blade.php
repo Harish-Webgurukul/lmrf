@@ -70,6 +70,9 @@
                                         <td>{{$patient->contact2}}</td>
                                         <td class="d-flex justify-content-between">
                                             <a href="{{ route('patient.show', $patient->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-fw fa-eye"></i></a>
+                                            @can('staff')
+                                            <a href="{{ route('patient.patient_staff_edit', $patient->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @can('admin')
                                             <a href="{{ route('patient.edit', $patient->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
 

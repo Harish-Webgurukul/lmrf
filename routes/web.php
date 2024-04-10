@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,11 +43,15 @@ Route::get('/patients', [PatientController::class, 'index'])->name('patient.inde
 Route::get('/patients/create', [PatientController::class, 'create'])->name('patient.create')->middleware(['auth']);
 Route::post('/patients', [PatientController::class, 'store'])->name('patient.store')->middleware(['auth']);
 Route::delete('/patients/{id}', [PatientController::class, 'destroy'])->name('patient.destroy')->middleware(['auth', 'can:admin']);
-Route::get('/patient_edit/{id}', [PatientController::class, 'patient_edit'])->name('patient.edit')->middleware(['auth']);
-Route::post('/patient_update/{id}', [PatientController::class, 'patient_update'])->name('patient.update')->middleware(['auth']);
-
+Route::get('/patient_edit/{id}', [PatientController::class, 'patient_edit'])->name('patient.edit')->middleware(['auth', 'can:admin']);
+Route::post('/patient_update/{id}', [PatientController::class, 'patient_update'])->name('patient.update')->middleware(['auth', 'can:admin']);
 Route::get('/patients/{id}', [PatientController::class, 'show'])->name('patient.show')->middleware(['auth']);;
 // patient route--ends
+// patient_staff route
+Route::get('/patient_staff_edit/{id}', [PatientController::class, 'patient_staff_edit'])->name('patient.patient_staff_edit')->middleware(['auth', 'can:staff']);
+Route::post('/patient_staff_update/{id}', [PatientController::class, 'patient_staff_update'])->name('patient.patient_staff_update')->middleware(['auth', 'can:staff']);
+// patient_staff route
+
 // biweeklycall
 Route::get('/new_call', [BiWeeklyController::class, 'new_call'])->name('new_call')->middleware(['auth']);
 Route::get('/call_patient/{id}', [BiWeeklyController::class, 'call_patient'])->name('call_patient')->middleware(['auth']);
@@ -94,6 +99,12 @@ Route::get('/view4_all', [AncController::class, 'view4_all'])->name('anc4.view_a
 Route::get('/view5_all', [AncController::class, 'view5_all'])->name('anc5.view_all')->middleware(['auth']);
 Route::get('/view6_all', [AncController::class, 'view6_all'])->name('anc6.view_all')->middleware(['auth']);
 //anc visit ends
+
+
+// report
+Route::get('/reports', [ReportController::class, 'index'])->name('reports')->middleware('auth');
+Route::post('/reports', [ReportController::class, 'staff_report'])->name('staff_report')->middleware('auth');
+// report ends
 
 // Route::get('/', function () {
 //     return view('welcome');
