@@ -255,6 +255,17 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label for="DeliveryDate">Delivery Date(leave empty on initial register)</label>
+                                                <input type="date" class="form-control form-control-user"
+                                                    id="DeliveryDate" placeholder=" Delivery Date" name="delivery_date">
+                                                    @error('delivery_date')
+                                                    <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <label for="inpersonfromvisitfinal">final study follow up at 42 day from</label>
@@ -274,16 +285,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="DeliveryDate">Delivery Date(leave empty on initial register)</label>
-                                                <input type="date" class="form-control form-control-user"
-                                                    id="DeliveryDate" placeholder=" Delivery Date" name="delivery_date">
-                                                    @error('delivery_date')
-                                                    <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
-                                                @enderror
-                                            </div>
-                                        </div>
+
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                            Add

@@ -53,13 +53,68 @@
                                         </table>
                                     </div>
                                 </div>
+                         </div>
+                         <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Today's Call</h6>
+                                </div>
+                                <div class="card-body">
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>New Calls</th>
+                                            <th>{{$new_call}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Pending Calls</th>
+                                            <th>{{$pending_call}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>ILS Followup</th>
+                                            <th>{{$ils_followup}}</th>
+                                        </tr>
 
 
-
+                                    </table>
+                                </div>
                             </div>
+                         </div>
+                        </div>
+                        <div class="row"> <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"> ANC's Visit</h6>
+                                </div>
+                                <div class="card-body">
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>ANC Visit 2</th>
+                                            <th>{{$anc_visit2}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>ANC Visit 3</th>
+                                            <th>{{$anc_visit3}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>ANC Visit 4</th>
+                                            <th>{{$anc_visit4}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Delivery Visit</th>
+                                            <th>{{$anc_visit5}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Follow up at 42 Days</th>
+                                            <th>{{$anc_visit6}}</th>
+                                        </tr>
 
 
-
+                                    </table>
+                                </div>
+                            </div>
+                         </div>
                         </div>
 
 

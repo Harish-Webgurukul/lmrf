@@ -104,6 +104,7 @@ Route::get('/view6_all', [AncController::class, 'view6_all'])->name('anc6.view_a
 // report
 Route::get('/reports', [ReportController::class, 'index'])->name('reports')->middleware('auth');
 Route::post('/reports', [ReportController::class, 'staff_report'])->name('staff_report')->middleware('auth');
+Route::get('/reportdownload', [ReportController::class, 'exportdata'])->name('exportdata');
 // report ends
 
 // Route::get('/', function () {

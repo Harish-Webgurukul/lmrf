@@ -8,8 +8,13 @@ use App\Models\Hospitalvisit;
 use App\Models\Ilsfollowup;
 use App\Models\Patient;
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\JoinClause;
+
 
 class BiWeeklyController extends Controller
 {
@@ -18,13 +23,30 @@ class BiWeeklyController extends Controller
     {
 
         $currentDate = Carbon::now()->startOfDay();
-        $res =  Biweeklycall::with('Patient')->where('status', '=', 0)->where('call_date', '=', $currentDate)->get();
-        return view('admin.biweekly.new_call', ['patients' => $res]);
+        // building dynamic query
+        $query = Biweeklycall::query();
+        $query = $query->with('Patient')->where('status', '=', 0)->where('call_date', '=', $currentDate);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $res = $query->get();
+
+
+        // if delivery date is set then don't generate the new call
+        $newarr = array();
+        foreach ($res as $key => $value) {
+
+            if ($value['Patient']['delivery_date'] == " ") {
+                array_push($newarr, $value);
+            }
+        }
+        return view('admin.biweekly.new_call', ['patients' => $newarr]);
     }
 
     public function call_patient($id)
     {
         $res =  Biweeklycall::with('Patient')->where('id', '=', $id)->where('status', '=', 0)->firstOrFail();
+
         return view('admin.biweekly.call_patient', ['patient' => $res]);
     }
 
@@ -92,15 +114,23 @@ class BiWeeklyController extends Controller
     {
         $pending_call = true;
         $currentDate = Carbon::now()->startOfDay();
-        // dd(Auth()->user()->staff_id);
-
-        if (Gate::allows('admin')) {
-            $res = Biweeklycall::with('Patient')->where('status', '=', 0)->where('call_date', '<', $currentDate)->get();
-        } else {
-            $res = Biweeklycall::with('Patient')->where('staff_id', '=', Auth()->user()->staff_id)->where('status', '=', 0)->where('call_date', '<', $currentDate)->get();
+        // building dynamic query
+        $query = Biweeklycall::query();
+        $query = $query->with('Patient')->where('status', '=', 0)->where('call_date', '<', $currentDate);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
         }
+        $res = $query->get();
 
-        return view('admin.biweekly.new_call', ['patients' => $res, 'pending_call' => $pending_call]);
+
+        $newarr = array();
+        foreach ($res as $key => $value) {
+
+            if ($value['Patient']['delivery_date'] == " ") {
+                array_push($newarr, $value);
+            }
+        }
+        return view('admin.biweekly.new_call', ['patients' => $newarr, 'pending_call' => $pending_call]);
     }
 
     // same view for pending call and new call
@@ -114,7 +144,12 @@ class BiWeeklyController extends Controller
     public function ils_index()
     {
 
-        $ilsfollowups = Ilsfollowup::with('patient')->where('is_ils_active', '=', 1)->get();
+        $query = Ilsfollowup::query();
+        $query = $query->with('patient')->where('is_ils_active', '=', 1);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $ilsfollowups = $query->get();
         return view('admin.ils.index', ['ilsfollowups' => $ilsfollowups]);
     }
     public function ils_call_patient($id)
@@ -150,7 +185,14 @@ class BiWeeklyController extends Controller
 
     public function hospital_index()
     {
-        $ilsfollowups = Hospitalvisit::with('patient')->where('status', '=', 0)->get();
+        $query = Hospitalvisit::query();
+        $query = $query->with('patient')->where('status', '=', 0);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $ilsfollowups = $query->get();
+
+
         return view('admin.hospital.index', ['ilsfollowups' => $ilsfollowups]);
     }
 
@@ -188,7 +230,13 @@ class BiWeeklyController extends Controller
     // HomeVisit
     public function home_index_ils()
     {
-        $ilsfollowups = Homevisit::with('patient')->where('status', '=', 0)->where('reason', '=', 1)->get();
+
+        $query = Homevisit::query();
+        $query = $query->with('patient')->where('status', '=', 0)->where('reason', '=', 1);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $ilsfollowups = $query->get();
         return view('admin.home.contact_ils', ['ilsfollowups' => $ilsfollowups]);
     }
 
@@ -221,7 +269,13 @@ class BiWeeklyController extends Controller
 
     public function home_index_nocontact()
     {
-        $ilsfollowups = Homevisit::with('patient')->where('status', '=', 0)->where('reason', '=', 2)->get();
+
+        $query = Homevisit::query();
+        $query = $query->with('patient')->where('status', '=', 0)->where('reason', '=', 2);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $ilsfollowups = $query->get();
         return view('admin.home.index_nocontact', ['ilsfollowups' => $ilsfollowups]);
     }
     public function home_edit_nocontact($id)

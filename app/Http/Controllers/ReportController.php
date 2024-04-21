@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -19,5 +21,11 @@ class ReportController extends Controller
     public function staff_report()
     {
         return  view('admin.reports.index');
+    }
+
+    public function exportdata()
+    {
+        $user = User::all();
+        return Excel::download(new UsersExport($user), 'user.xlsx');
     }
 }

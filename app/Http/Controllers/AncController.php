@@ -8,34 +8,59 @@ use App\Models\Hospitalvisit;
 use App\Models\Ilsfollowup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AncController extends Controller
 {
     public function view2_all()
     {
         $currentDate = Carbon::now()->startOfDay();
-        $res =  Ancvisit::with('patient')->where('visit_number', '=', 2)->where('status', '=', 0)->where('from_date', '<=', $currentDate)->get();
+
+        $query = Ancvisit::query();
+        $query = $query->with('patient')->where('visit_number', '=', 2)->where('status', '=', 0)->where('from_date', '<=', $currentDate);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $res = $query->get();
+
+
         return view('admin.anc.index', ['ancs' => $res, 'visit_no' => 2]);
     }
     public function view3_all()
     {
         $currentDate = Carbon::now()->startOfDay();
 
-        $res =  Ancvisit::with('patient')->where('visit_number', '=', 3)->where('status', '=', 0)->where('from_date', '<=', $currentDate)->get();
+        $query = Ancvisit::query();
+        $query = $query->with('patient')->where('visit_number', '=', 3)->where('status', '=', 0)->where('from_date', '<=', $currentDate);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $res = $query->get();
+
         return view('admin.anc.index', ['ancs' => $res, 'visit_no' => 3]);
     }
     public function view4_all()
     {
         $currentDate = Carbon::now()->startOfDay();
+        $query = Ancvisit::query();
+        $query = $query->with('patient')->where('visit_number', '=', 4)->where('status', '=', 0)->where('from_date', '<=', $currentDate);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $res = $query->get();
 
-        $res =  Ancvisit::with('patient')->where('visit_number', '=', 4)->where('status', '=', 0)->where('from_date', '<=', $currentDate)->get();
         return view('admin.anc.index', ['ancs' => $res, 'visit_no' => 4]);
     }
     public function view5_all()
     {
         $currentDate = Carbon::now()->startOfDay();
+        $query = Ancvisit::query();
+        $query = $query->with('patient')->where('visit_number', '=', 5)->where('status', '=', 0)->where('from_date', '<=', $currentDate);
+        if (Gate::allows('staff')) {
+            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+        }
+        $res = $query->get();
 
-        $res =  Ancvisit::with('patient')->where('visit_number', '=', 5)->where('status', '=', 0)->where('from_date', '<=', $currentDate)->get();
         return view('admin.anc.index', ['ancs' => $res, 'visit_no' => 5]);
     }
     public function view6_all()

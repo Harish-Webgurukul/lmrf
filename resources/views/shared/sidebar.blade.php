@@ -64,7 +64,7 @@
                 <a class="collapse-item" href="{{ route('anc3.view_all') }}">ANC Visit 3</a>
                 <a class="collapse-item" href="{{ route('anc4.view_all') }}">ANC Visit 4</a>
                 <a class="collapse-item" href="{{ route('anc5.view_all') }}">Delivery Visit</a>
-                <a class="collapse-item" href="{{ route('anc6.view_all') }}">Day7 postpartum Visit</a>
+                <a class="collapse-item" href="{{ route('anc6.view_all') }}">Follow up at 42 day </a>
             </div>
         </div>
     </li>
