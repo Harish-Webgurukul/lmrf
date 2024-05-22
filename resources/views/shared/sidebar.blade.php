@@ -132,14 +132,14 @@
             </div>
         </div>
     </li>
-    @endcan
+
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('reports') }}">
             <i class="fas fa-fw fa-print"></i>
             <span>Reports</span></a>
     </li>
-
+    @endcan
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

@@ -90,6 +90,8 @@ Route::get('/facility/{facility}/edit', [FacilityController::class, 'edit'])->na
 Route::put('/facility/{facility}', [FacilityController::class, 'update'])->name('facility.update')->middleware(['auth', 'can:admin']);
 
 // ancvisit start
+Route::get('/ancdelivery/{ancvisit}', [AncController::class, 'delivery_show'])->name('ancdelivery.show')->middleware(['auth']);
+Route::post('/ancdelivery/{ancvisit}', [AncController::class, 'delivery_update'])->name('ancdelivery.update')->middleware(['auth']);
 Route::get('/anc/{ancvisit}', [AncController::class, 'show'])->name('anc.show')->middleware(['auth']);
 Route::post('/anc/{ancvisit}', [AncController::class, 'update'])->name('anc.update')->middleware(['auth']);
 
@@ -102,8 +104,8 @@ Route::get('/view6_all', [AncController::class, 'view6_all'])->name('anc6.view_a
 
 
 // report
-Route::get('/reports', [ReportController::class, 'index'])->name('reports')->middleware('auth');
-Route::post('/reports', [ReportController::class, 'staff_report'])->name('staff_report')->middleware('auth');
+Route::get('/reports', [ReportController::class, 'index'])->name('reports')->middleware(['auth', 'can:admin']);
+Route::post('/reports', [ReportController::class, 'staff_report'])->name('staff_report')->middleware(['auth', 'can:admin']);
 Route::get('/reportdownload', [ReportController::class, 'exportdata'])->name('exportdata');
 // report ends
 

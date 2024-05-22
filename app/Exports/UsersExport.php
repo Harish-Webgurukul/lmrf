@@ -2,28 +2,28 @@
 
 namespace App\Exports;
 
+use App\Models\Biweeklycall;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class UsersExport implements FromArray, WithHeadings
-{
-    protected $data;
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    // public function collection()
-    // {
-    //     return User::all();
-    // }
 
-    public function array(): array
+class UsersExport implements FromCollection, WithHeadings
+{
+    public function __construct($var = null, $arr = null)
     {
-        return $this->data->toArray();
+        $this->var = $var;
+        $this->arr = $arr;
+    }
+
+    public function collection()
+    {
+
+        return $this->var->get();
+    }
+    public function headings(): array
+    {
+        return $this->arr;
     }
 }

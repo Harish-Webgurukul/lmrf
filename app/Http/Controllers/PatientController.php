@@ -50,7 +50,7 @@ class PatientController extends Controller
         $validated = request()->validate(
             [
                 'staff_id' => 'required',
-                'study_id' => 'required',
+                'study_id' => 'unique:App\Models\Patient',
                 'firstname' => 'required',
                 'lastname' => 'required',
                 'contact1' => 'nullable|digits:10',
@@ -126,6 +126,7 @@ class PatientController extends Controller
         $facilities = Facility::get();
         $operators = User::where('user_role', '2')->get();
         $patient = Patient::with('ancvisits')->where('id', $id)->firstOrFail();
+        // dd(is_null($patient->delivery_date));
         // dd($patient->ancvisits[4]->from_date);
         return view('admin.patient.edit', compact('patient', 'facilities', 'operators'));
     }

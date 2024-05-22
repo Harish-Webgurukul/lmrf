@@ -9,6 +9,7 @@ use App\Models\Ilsfollowup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class AncController extends Controller
 {
@@ -54,14 +55,17 @@ class AncController extends Controller
     public function view5_all()
     {
         $currentDate = Carbon::now()->startOfDay();
-        $query = Ancvisit::query();
-        $query = $query->with('patient')->where('visit_number', '=', 5)->where('status', '=', 0)->where('from_date', '<=', $currentDate);
+        $query = DB::table('ancvisits')
+            ->leftJoin('patients', 'ancvisits.study_id', '=', 'patients.study_id')
+            ->where('ancvisits.visit_number', '=', 5)
+            ->where('ancvisits.status', '=', 0)
+            ->where('patients.delivery_date', '<=', $currentDate);
+
         if (Gate::allows('staff')) {
-            $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
+            $query = $query->where('patients.staff_id', '=', Auth()->user()->staff_id);
         }
         $res = $query->get();
-
-        return view('admin.anc.index', ['ancs' => $res, 'visit_no' => 5]);
+        return view('admin.anc.delivery', ['ancs' => $res, 'visit_no' => 5]);
     }
     public function view6_all()
     {
@@ -76,12 +80,81 @@ class AncController extends Controller
         $res =  Ancvisit::with('patient')->where('id', '=', $id)->firstOrFail();
         return view('admin.anc.show', ['anc' => $res]);
     }
+    //after delivery visit
+    public function delivery_show($id)
+    {
+        $res =  Ancvisit::with('patient')->where('study_id', '=', $id)->where('visit_number', '=', '5')->firstOrFail();
+        return view('admin.anc.delivery_show', ['anc' => $res]);
+    }
+    public function delivery_update($id)
+    {
+        $hospital_visit = request()->get('hospital_visit', '');
+        $home_visit =  request()->get('home_visit', '');
+        $ils_symptons_active = request()->get('ils_symptons_active') == null ? 0 : 1;
+        $status = request()->get('status');
+        if ($status == 0) {
+            return redirect()->route('anc5.view_all')->with('success', 'No data updated!');
+        }
 
+        $anccall = Ancvisit::where('id', $id)->firstOrFail();
+        // dd($anccall);
+        if ($status == 1) {
+            $anccall['status'] = 1;
+            $anccall['note'] = request()->get('notes', $anccall['notes']);
+            if ($home_visit != null) {
+                Homevisit::create([
+                    'staff_id' => $anccall['staff_id'],
+                    'study_id' => $anccall['study_id'],
+                    'patient_id' => $anccall['patient_id'],
+                    'reason' => 0,
+                    'visit_date' => Carbon::now(),
+                    'note' => request()->get('notes', $anccall['notes'])
+                ]);
+            }
+        } else {
+            $anccall['visit_completed_on'] = Carbon::now();
+            $anccall['status'] = request()->get('status', $anccall['status']);
+            $anccall['note'] = request()->get('notes', $anccall['notes']);
+        }
+
+        $anccall->save();
+        if ($ils_symptons_active == 1 && $status == 2) {
+            Ilsfollowup::create([
+                'staff_id' => $anccall['staff_id'],
+                'study_id' => $anccall['study_id'],
+                'patient_id' => $anccall['patient_id'],
+                'reported_from' => 'anc call',
+                'reported_on' => Carbon::now()
+
+            ]);
+            if ($hospital_visit != null) {
+                Hospitalvisit::create([
+                    'staff_id' => $anccall['staff_id'],
+                    'study_id' => $anccall['study_id'],
+                    'patient_id' => $anccall['patient_id'],
+                    'visit_date' => request()->get('hospital_visit'),
+                    'reason' => $ils_symptons_active,
+                    'note' => request()->get('notes', $anccall['note'])
+                ]);
+            }
+            if ($home_visit != null) {
+
+                Homevisit::create([
+                    'staff_id' => $anccall['staff_id'],
+                    'study_id' => $anccall['study_id'],
+                    'patient_id' => $anccall['patient_id'],
+                    'reason' => 1,
+                    'visit_date' => Carbon::now(),
+                    'note' => request()->get('notes', $anccall['note'])
+                ]);
+            }
+        }
+
+        return redirect()->route('anc5.view_all')->with('success', 'Data Update Successfully1');
+    }
 
     public function update($id)
     {
-
-
         $hospital_visit = request()->get('hospital_visit', '');
         $home_visit =  request()->get('home_visit', '');
         $ils_symptons_active = request()->get('ils_symptons_active') == null ? 0 : 1;

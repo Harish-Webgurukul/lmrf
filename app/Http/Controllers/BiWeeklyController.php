@@ -191,8 +191,6 @@ class BiWeeklyController extends Controller
             $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
         }
         $ilsfollowups = $query->get();
-
-
         return view('admin.hospital.index', ['ilsfollowups' => $ilsfollowups]);
     }
 
@@ -224,13 +222,12 @@ class BiWeeklyController extends Controller
 
         $hospital['note'] = request()->get('notes');
         $hospital->save();
-        return redirect()->route('hospital.index')->with('success', 'Data Update Successfully1');
+        return redirect()->route('hospital.index')->with('success', 'Data Update Successfully!');
     }
 
     // HomeVisit
     public function home_index_ils()
     {
-
         $query = Homevisit::query();
         $query = $query->with('patient')->where('status', '=', 0)->where('reason', '=', 1);
         if (Gate::allows('staff')) {

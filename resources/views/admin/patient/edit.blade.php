@@ -303,7 +303,7 @@
                                             <div class="col-sm-6">
                                                 <label for="DeliveryDate">Delivery Date(leave empty on initial register)</label>
                                                 <input type="date" class="form-control form-control-user"
-                                                    id="DeliveryDate" placeholder=" Delivery Date" name="delivery_date" value="{{$patient->delivery_date==null?" ":date_format(date_create($patient->delivery_date),"Y-m-d")}}">
+                                                    id="DeliveryDate" placeholder="Delivery Date" name="delivery_date" value="{{$patient->delivery_date==" "?"":date_format(date_create($patient->delivery_date),"Y-m-d")}}">
                                                     @error('delivery_date')
                                                     <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                                                 @enderror
