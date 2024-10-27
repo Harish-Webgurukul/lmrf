@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('contact2')->nullable();
             $table->string('staff_id')->nullable();
             $table->boolean('is_deleted')->default(false);
-            $table->timestamp('last_loggedin')->useCurrent();;
+            $table->timestamp('last_loggedin')->useCurrent();
             $table->rememberToken();
             $table->timestamps();
         });

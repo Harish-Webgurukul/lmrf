@@ -28,15 +28,16 @@ class ReportController extends Controller
         $validated = request()->validate(
             [
                 'reporttype' => 'required',
-                'fromDate' => 'required',
-                'toDate' => 'required',
+                'fromDate' => 'nullable|date',
+                'toDate' => 'nullable|date',
             ]
         );
         $currentDate = Carbon::now()->startOfDay();
         $op = $validated['reporttype'];
-        $fromDate = $validated['fromDate'];
-        $toDate = $validated['toDate'];
-        // dd(request()->all());
+        // Set dates to null if they are not provided
+        $fromDate = $validated['fromDate'] ?? null;
+        $toDate = $validated['toDate'] ?? null;
+    
         switch ($op) {
             case 1:
                 break;
@@ -95,10 +96,133 @@ class ReportController extends Controller
 
                 return Excel::download(new UsersExport($query, $arr), 'PendingCalls.xlsx');
                 break;
+                case 4:
+                    $arr = [
+                        "staff id",
+                        "study id",
+                        "firstname",
+                        "lastname",
+                        "contact1",
+                        "contact2",
+                        "proxy contact1",
+                        "proxy contact2",
+                        "facility",
+                        "address",
+                        "landmark",
+                        "city",
+                        "pincode",
+                        "enrollment date",
+                        "expected delivery date",
+                        "delivery date",
+                        "Hospital visit date For ILS",
+                        "Hospital visit completed on",
+                        "Status"
+                    ];
+                    $query = DB::table('hospitalvisits')
+                        ->leftJoin('patients', 'hospitalvisits.study_id', '=', 'patients.study_id')
+                        ->select('patients.staff_id', 'patients.study_id', 'patients.firstname', 'patients.lastname', 'patients.contact1', 'patients.contact2', 'patients.proxy_contact1', 'patients.proxy_contact2', 'patients.facility', 'patients.address', 'patients.landmark', 'patients.city', 'patients.pincode', 'patients.enrollment_date', 'patients.expected_delivery_date', 'patients.delivery_date', 'hospitalvisits.visit_date', 'hospitalvisits.visit_completed_on')
+                        ->where('hospitalvisits.reason', '=', 1)->where('hospitalvisits.visit_date', '<', $fromDate)->where('hospitalvisits.visit_date', '<', $toDate);;
+    
+                    return Excel::download(new UsersExport($query, $arr), 'HospitalVisitForILS.xlsx');
+                    break;
+                    case 5:
+                        $arr = [
+                            "staff id",
+                            "study id",
+                            "firstname",
+                            "lastname",
+                            "contact1",
+                            "contact2",
+                            "proxy contact1",
+                            "proxy contact2",
+                            "facility",
+                            "address",
+                            "landmark",
+                            "city",
+                            "pincode",
+                            "enrollment date",
+                            "expected delivery date",
+                            "delivery date",
+                            "Hospital visit date For ILS",
+                            "Hospital visit completed on",
+                            "Status"
+                        ];
+                        $query = DB::table('hospitalvisits')
+                            ->leftJoin('patients', 'hospitalvisits.study_id', '=', 'patients.study_id')
+                            ->select('patients.staff_id', 'patients.study_id', 'patients.firstname', 'patients.lastname', 'patients.contact1', 'patients.contact2', 'patients.proxy_contact1', 'patients.proxy_contact2', 'patients.facility', 'patients.address', 'patients.landmark', 'patients.city', 'patients.pincode', 'patients.enrollment_date', 'patients.expected_delivery_date', 'patients.delivery_date', 'hospitalvisits.visit_date', 'hospitalvisits.visit_completed_on')
+                            ->where('hospitalvisits.reason', '=', 1);
+        
+                        return Excel::download(new UsersExport($query, $arr), 'TotalILSReported.xlsx');
+                    
+                        break;
+                case 8:
+                    $arr = [
+                    'staff_id',
+                    'study_id',
+                    'facility Name',
+                    'firstname',
+                    'lastname',
+                    'contact1',
+                    'contact2',
+                    'proxy_contact1',
+                    'proxy_contact2',
+                    'address',
+                    'landmark',
+                    'city',
+                    'pincode',
+                    'enrollment_date',
+                    'expected_delivery_date',
+                    'delivery_date',
+                    'is_deleted'
+                    ];
+                    $query = DB::table('patients')
+                    ->leftJoin('facilities', 'patients.facility_id', '=', 'facilities.id')
+                        ->select('patients.staff_id',
+                         'patients.study_id',
+                         'facilities.facility_name',
+                        'patients.firstname',
+                         'patients.lastname',
+                         'patients.contact1',
+                         'patients.contact2',
+                         'patients.proxy_contact1',
+                         'patients.proxy_contact2',
+                        'patients.address',
+                         'patients.landmark',
+                         'patients.city',
+                         'patients.pincode',
+                         'patients.enrollment_date', 
+                         'patients.expected_delivery_date', 
+                         'patients.delivery_date', 
+                         'patients.is_deleted')
+;                        
+                    return Excel::download(new UsersExport($query, $arr), 'PatientDetails.xlsx');
+                    break;
+                    case 9:
+                        $arr = [                        
+                    'firstname',
+                    'lastname',
+                    'email',
+                    'contact1',
+                    'contact2',
+                    'staff_id',
+                    'is_deleted',
+                    'last_loggedin',
+                        ];
+                        $query = DB::table('users')->where('users.user_role', '=', 2)
+                            ->select(
+                               'users.firstname',
+                                'users.lastname',
+                                'users.email',
+                                'users.contact1',
+                                'users.contact2',
+                                'users.staff_id',
+                                'users.is_deleted',
+                                'users.last_loggedin'
+                           );                        
+                        return Excel::download(new UsersExport($query, $arr), 'StaffDetails.xlsx');
+                        break;
             default:
         }
-
-
         return  view('admin.reports.index');
     }
 

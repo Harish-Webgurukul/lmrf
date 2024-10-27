@@ -34,24 +34,6 @@
                                     <form class="user" method="post" action="{{route('staff_report')}}">
                                         @csrf
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label for="fromDate">From Date</label>
-                                                <input type="date" class="form-control" id="fromDate"
-                                                placeholder="From Date" name="fromDate" required>
-                                                @error('fromDate')
-                                                <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
-                                            @enderror
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="fromDate">To Date</label>
-                                                <input type="date" class="form-control"
-                                                    id="todate" placeholder="To Date" name="toDate" required>
-                                                    @error('toDate')
-                                                    <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <div class="col-sm-8 mb-3 mb-sm-0">
                                                 <label> Select Report Type</label>
                                         <select class="form-control" name="reporttype">
@@ -62,6 +44,8 @@
                                             <option value="5">Total ILS symptoms reported</option>
                                             <option value="6">Total Specimen Collected</option>
                                             <option value="7">Total ILS resolved</option>
+                                            <option value="8">Patient Details</option>
+                                            <option value="9">Staff Details</option>
                                         </select>
 
                                             @error('reporttype')
@@ -69,10 +53,30 @@
                                             @enderror
                                             </div>
                                         </div>
-
+                                        <div class="form-group row" id="datedata">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="fromDate">From Date</label>
+                                                <input type="date" class="form-control" id="fromDate"
+                                                placeholder="From Date" name="fromDate">
+                                                @error('fromDate')
+                                                <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
+                                            @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="fromDate">To Date</label>
+                                                <input type="date" class="form-control"
+                                                    id="todate" placeholder="To Date" name="toDate">
+                                                    @error('toDate')
+                                                    <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="col-sm-6">
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                            Generate
                                         </button>
+                                        </div>
                                         <hr>
 
                                     </form>
@@ -102,4 +106,30 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+@endsection
+
+@section('custom_javascript')
+    <script type="text/javascript">
+        $(document).ready(function() {
+        
+            $("select[name='reporttype']").on("change", function() {
+                    var str = "";
+                    str = $("select[name='reporttype'] option:selected").val();
+                   console.log(str);
+
+                   //hide for 1, 3, 8, 9
+                   let arr = [1, 3,5, 8, 9];
+                   let number = parseInt(str, 10); // Convert string to integer
+            
+                   if(arr.includes(number)){
+                    $('#datedata').hide();
+                   }
+                   else{
+                    $('#datedata').show();
+                   }
+
+                })
+                .trigger("change");
+        });
+    </script>
 @endsection
