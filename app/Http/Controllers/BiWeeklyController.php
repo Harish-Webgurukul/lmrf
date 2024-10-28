@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Arr;
 
 
 class BiWeeklyController extends Controller
@@ -121,12 +122,10 @@ class BiWeeklyController extends Controller
             $query = $query->where('staff_id', '=', Auth()->user()->staff_id);
         }
         $res = $query->get();
-
-
         $newarr = array();
         foreach ($res as $key => $value) {
-
-            if ($value['Patient']['delivery_date'] == " ") {
+            
+            if(Arr::has($value, 'Patient.delivery_date') && $value['Patient']['delivery_date']==" "){
                 array_push($newarr, $value);
             }
         }
