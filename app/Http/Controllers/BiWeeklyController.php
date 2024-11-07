@@ -37,7 +37,7 @@ class BiWeeklyController extends Controller
         $newarr = array();
         foreach ($res as $key => $value) {
 
-            if ($value['Patient']['delivery_date'] == " ") {
+            if (Arr::has($value, 'Patient.delivery_date') && $value['Patient']['delivery_date']==" ") {
                 array_push($newarr, $value);
             }
         }
